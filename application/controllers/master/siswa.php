@@ -35,16 +35,35 @@ class Siswa extends MY_Controller {
         );
         $this->load->view('webadmin/index', $data);
     }
-    
+
     public function view($kode_siswa) {
+        $field = '*'
+                . ',(select h1.tgl_pembayaran from t_pembayaran_header h1 WHERE h1.kode_pembayaran = t_pembayaran_detail.kode_pembayaran) as tgl_pembayaran';
+        $array_where = array(
+            'jenis_pembayaran' => 'K02',
+            'kode_pembayaran in (SELECT h.kode_pembayaran FROM t_pembayaran_header h WHERE h.kode_siswa = \''.$kode_siswa.'\')' => null
+        );
+        $list_hist_spp = $this->pembayaran_det_model->select($field, $array_where, null, null, array('field'=>'tgl_pembayaran', 'sort'=>'desc'))->result();
+
+//        SELECT
+//	*,
+//(select h1.tgl_pembayaran from t_pembayaran_header h1 WHERE h1.kode_pembayaran = d.kode_pembayaran) as tgl_pembayaran
+//FROM
+//	t_pembayaran_detail d
+//WHERE
+//	d.kode_pembayaran IN (
+//		SELECT h.kode_pembayaran FROM t_pembayaran_header h WHERE h.kode_siswa = '1410024'
+//	)
+
         $data = array(
             'title_page' => 'Lihat Data',
             'common' => $this,
             'modul' => $this->modul,
             'title_content' => 'Lihat Data ' . $this->modul,
-            'data_siswa' => $this->siswa_model->select('*', array('kode_siswa'=>$kode_siswa), null, null, null)->row(),
+            'data_siswa' => $this->siswa_model->select('*', array('kode_siswa' => $kode_siswa), null, null, null)->row(),
             'list_data_jk' => $this->listcode_model->select('*', array('head_list' => 'JK'), null, null, null)->result(),
             'list_data_kelas' => $this->listcode_model->select('*', array('head_list' => 'KLS'), null, null, null)->result(),
+            'list_hist_spp' => $list_hist_spp,
             'page' => 'webadmin/master/siswa/view'
         );
         $this->load->view('webadmin/index', $data);
@@ -88,14 +107,12 @@ class Siswa extends MY_Controller {
                 $this->session->set_flashdata('message', $this->message->get_message('danger', 'failed'));
             }
         }
-        
-        if($submit == 'profil'){
-            redirect('master/siswa/view/'.$kode);
-        }else{
+
+        if ($submit == 'profil') {
+            redirect('master/siswa/view/' . $kode);
+        } else {
             redirect('master/siswa');
         }
-        
-        
     }
 
     public function delete($id = null) {
@@ -129,15 +146,15 @@ class Siswa extends MY_Controller {
         foreach ($list_siswa as $siswa) {
             $no = $i + 1;
             $output .= '<tr>'
-                    . '<td>'.$no.'</td>'
+                    . '<td>' . $no . '</td>'
                     . '<td>' . $siswa->nama_siswa . '</td>'
-                    . '<input type="hidden" name="kode_siswa['.$i.']" value="'.$siswa->kode_siswa.'" />'
-                    . '<td><input type="radio" name="hadir['.$i.']" value="1" checked/></td>'
-                    . '<td><input type="radio" name="hadir['.$i.']" value="0"></td>';
+                    . '<input type="hidden" name="kode_siswa[' . $i . ']" value="' . $siswa->kode_siswa . '" />'
+                    . '<td><input type="radio" name="hadir[' . $i . ']" value="1" checked/></td>'
+                    . '<td><input type="radio" name="hadir[' . $i . ']" value="0"></td>';
             $i++;
         }
         $output .= '</tbody>                                    
-                    </table>';        
+                    </table>';
 
         $arr[0] = $output;
         echo json_encode($arr);

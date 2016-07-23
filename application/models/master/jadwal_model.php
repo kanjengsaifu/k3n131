@@ -1,31 +1,22 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of template_model
+ * Description of Siswa_model
  *
  * @author TIAbdilah
- * STUDIOIT
  */
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Wo_model extends CI_Model {
+class Jadwal_model extends CI_Model {
 
-    var $table_name = 'm_wo';
+    var $table_name = 'm_jadwal';
 
     public function __construct() {
         parent::__construct();
     }
 
     public function select($field, $where = array(), $limit = null, $offset = '', $order = array('field' => null, 'sort' => 'ASC')) {
-        $field .= ',(select p.nama_list from u_list_code p where p.kode_list = dept) as departments'
-                 .',(select t.nama_list from u_list_code t where t.kode_list = type) as type_work';
+        $field .= ',(select u.nama_list from u_list_code u where u.kode_list = m_jadwal.mapel) as nama_mapel';
         $this->db->select($field);
         if (!is_null($order['field'])) {
             $this->db->order_by($order['field'], $order['sort']);

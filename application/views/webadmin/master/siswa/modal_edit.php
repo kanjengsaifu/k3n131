@@ -56,12 +56,11 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="" class="control-label">Kelas</label>
-                                <!--<input type="text" name="inp_kelas" value="<?php echo $data->kelas ?>" class="form-control input-sm" required  placeholder="nama ayah..">-->
                                 <select class="form-control input-sm select2" name="inp_kelas" required>
                                     <option value="">Select..</option>
                                     <?php
                                     foreach ($list_data_kelas as $kelas) {
-                                        echo '<option value="' . $kelas->nama_list . '" ' . set_select('inp_jenis_kelamin', $kelas->nama_list, $kelas->nama_list == $data->kelas) . '>' . $kelas->nama_list . '</option>';
+                                        echo '<option value="' . $kelas->nama_list . '" ' . set_select('inp_kelas', $kelas->nama_list, $kelas->nama_list == $data->kelas) . '>' . $kelas->nama_list . '</option>';
                                     }
                                     ?>
                                 </select>

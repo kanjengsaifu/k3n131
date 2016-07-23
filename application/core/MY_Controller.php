@@ -30,6 +30,7 @@ class MY_Controller extends CI_Controller {
         //model master
         $this->load->model('master/siswa_model');
         $this->load->model('master/guru_model');
+        $this->load->model('master/jadwal_model');
         
         //model transaksi
         $this->load->model('transaksi/pembayaran_header_model');

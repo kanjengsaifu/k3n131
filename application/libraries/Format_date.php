@@ -41,6 +41,11 @@ class Format_date {
             'Oktober', 'November', 'Desember');
         return $arr;
     }
+    
+    public function list_day(){
+        $arr = array( 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu');
+        return $arr;
+    }
 
     public function format_date_custom($string, $format) {
         $date_time = strtotime($string);

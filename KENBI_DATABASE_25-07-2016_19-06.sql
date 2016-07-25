@@ -1,22 +1,4 @@
-<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
-
-<h4>A PHP Error was encountered</h4>
-
-<p>Severity: Warning</p>
-<p>Message:  mysql_num_fields() expects parameter 1 to be resource, boolean given</p>
-<p>Filename: common/dash.php</p>
-<p>Line Number: 102</p>
-
-</div><div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
-
-<h4>A PHP Error was encountered</h4>
-
-<p>Severity: Warning</p>
-<p>Message:  mysql_num_fields() expects parameter 1 to be resource, boolean given</p>
-<p>Filename: common/dash.php</p>
-<p>Line Number: 102</p>
-
-</div>DROP TABLE IF EXISTS m_guru;
+DROP TABLE IF EXISTS m_guru;
 
 CREATE TABLE `m_guru` (
   `id_guru` tinyint(2) NOT NULL AUTO_INCREMENT,
@@ -41,6 +23,23 @@ INSERT INTO m_guru VALUES("10","G009","Fadli Salman, S.Pd","Kimia","081214829308
 INSERT INTO m_guru VALUES("12","G010","Annisa, S.Pd","Biologi","081","Jalan","");
 
 
+DROP TABLE IF EXISTS m_jadwal;
+
+CREATE TABLE `m_jadwal` (
+  `id_jadwal` int(11) NOT NULL AUTO_INCREMENT,
+  `hari` int(1) DEFAULT NULL,
+  `jam` int(1) DEFAULT NULL,
+  `mapel` varchar(20) DEFAULT NULL,
+  `kelas` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`id_jadwal`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+INSERT INTO m_jadwal VALUES("1","1","1","KIM","10A");
+INSERT INTO m_jadwal VALUES("2","0","1","BIN","5");
+INSERT INTO m_jadwal VALUES("3","0","2","MWA","12A");
+INSERT INTO m_jadwal VALUES("4","1","2","MTK","6A");
+
+
 DROP TABLE IF EXISTS m_log;
 
 CREATE TABLE `m_log` (
@@ -51,7 +50,7 @@ CREATE TABLE `m_log` (
   `date` datetime DEFAULT NULL,
   `type_user` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id_log`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
 
 INSERT INTO m_log VALUES("1","1","Delete All Data Log","","2016-07-21 10:31:48","super_admin");
 INSERT INTO m_log VALUES("2","1","Tambah Data Absensi Siswa","3 - XB","2016-07-21 11:30:45","super_admin");
@@ -83,6 +82,28 @@ INSERT INTO m_log VALUES("27","1","Ubah Data Pembuatan Dokumen","","2016-07-22 1
 INSERT INTO m_log VALUES("28","1","Ubah Data User","echa","2016-07-22 16:04:44","super_admin");
 INSERT INTO m_log VALUES("29","0","Login ","super_admin","2016-07-23 00:13:31","0");
 INSERT INTO m_log VALUES("30","1","Tambah Data Pengeluaran","sisa bulan sebelumnya","2016-07-23 00:14:45","super_admin");
+INSERT INTO m_log VALUES("31","0","Login ","super_admin","2016-07-23 12:44:58","0");
+INSERT INTO m_log VALUES("32","0","Login ","super_admin","2016-07-24 00:22:42","0");
+INSERT INTO m_log VALUES("33","1","Tambah Data Modul","Jadwal","2016-07-24 00:23:23","super_admin");
+INSERT INTO m_log VALUES("34","1","Ubah Data Role","","2016-07-24 00:23:42","super_admin");
+INSERT INTO m_log VALUES("35","1","Logout","","2016-07-24 00:23:56","super_admin");
+INSERT INTO m_log VALUES("36","0","Login ","super_admin","2016-07-24 00:24:01","0");
+INSERT INTO m_log VALUES("37","1","Ubah Data Jadwal","","2016-07-24 01:49:21","super_admin");
+INSERT INTO m_log VALUES("38","1","Ubah Data Jadwal","","2016-07-24 01:51:35","super_admin");
+INSERT INTO m_log VALUES("39","1","Ubah Data Jadwal","","2016-07-24 01:57:06","super_admin");
+INSERT INTO m_log VALUES("40","1","Ubah Data Jadwal","","2016-07-24 02:00:49","super_admin");
+INSERT INTO m_log VALUES("41","1","Tambah Data Jadwal","","2016-07-24 02:02:10","super_admin");
+INSERT INTO m_log VALUES("42","1","Ubah Data Jadwal","","2016-07-24 02:04:59","super_admin");
+INSERT INTO m_log VALUES("43","0","Login ","super_admin","2016-07-24 10:10:10","0");
+INSERT INTO m_log VALUES("44","1","Tambah Data Jadwal","","2016-07-24 10:11:16","super_admin");
+INSERT INTO m_log VALUES("45","1","Ubah Data Jadwal","","2016-07-24 10:11:28","super_admin");
+INSERT INTO m_log VALUES("46","0","Login ","super_admin","2016-07-25 10:12:15","0");
+INSERT INTO m_log VALUES("47","1","Ubah Data Siswa","Josia Hendrico S.","2016-07-25 10:31:33","super_admin");
+INSERT INTO m_log VALUES("48","1","Logout","","2016-07-25 12:52:13","super_admin");
+INSERT INTO m_log VALUES("49","0","Login ","chaa","2016-07-25 12:52:23","0");
+INSERT INTO m_log VALUES("50","7","Logout","","2016-07-25 14:11:10","admin siswa");
+INSERT INTO m_log VALUES("51","0","Login ","super_admin","2016-07-25 14:25:22","0");
+INSERT INTO m_log VALUES("52","0","Login ","super_admin","2016-07-25 19:05:50","0");
 
 
 DROP TABLE IF EXISTS m_siswa;
@@ -108,18 +129,108 @@ CREATE TABLE `m_siswa` (
   `pkj_ibu` varchar(20) DEFAULT '-',
   `tempat_lahir` varchar(20) DEFAULT '-',
   PRIMARY KEY (`id_siswa`)
-) ENGINE=MyISAM AUTO_INCREMENT=157 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=101 DEFAULT CHARSET=latin1;
 
-INSERT INTO m_siswa VALUES("144","1410022","Eggy Radiansyah S","SMAN 1 Baleendah","2","XA","Eggy","Laki-laki","0000-00-00","Jln.. Bojongsoang No.18 Rt.02/01","Islam","089691938166","082117987800","0","Dudi Sutandi","Wirausaha","Sukamta","Ibu Rumah Tangga","Bandung ");
-INSERT INTO m_siswa VALUES("145","1410023","M. Difa Aldira H","SMAN 1 Baleendah","1","XA","Difa","Laki-laki","0000-00-00","Kp. Bojong Peuteuy Rt.01/05, Banjaran","Islam","089626786536","089691719231","0","Insan Nuddin Hakim","Pegawai Swasta","Neti Kurnaeti","Ibu Rumah Tangga","Bandung");
-INSERT INTO m_siswa VALUES("146","1410024","Muhammad Jessin P","SMAN 1 Baleendah","1","XA","Jessin","Laki-laki","0000-00-00","Komp. Warakauri No.136 Rt.06/10 Kec.Baleendah","Islam","085860921139","081809111818","0","Wendri Helpinal","Wiraswasta","Yenti","Ibu Rumah Tangga","Bandung");
-INSERT INTO m_siswa VALUES("147","1410025","M. Fikri Fadhillah","SMAN 1 Baleendah","1","XA","Fikri","Laki-laki","0000-00-00","Jl. Nuri E 14 No.5 Komp. GPA","Islam","081221894097","081221443565","0","Dadang A. Z","PNS","Tintin K","PNS","Bandung");
-INSERT INTO m_siswa VALUES("148","1410027","Sherly Dea Yolandita","SMAN 1 Baleendah","1","XA","Sherly ","Perempuan","0000-00-00","Jl. Adipati Agung no. 45 Dlm, Baleendah, Bandung","Islam","088802102445","02292835211","0","Nandang Lukman","Wiraswasta","Imas Wati","Ibu Rumah Tangga","Tasikmalaya");
-INSERT INTO m_siswa VALUES("149","1410028","Diani Fahanshah","SMAN 1 Baleendah","3","XA","Diani","Perempuan","0000-00-00","Lamajang Peuntas Rt.03/05 no.120 Desa Citeureup Ke","Islam","089612024125","089612024122","0","Jumadi","Pensiunan PNS","Widayati","Ibu Rumah Tangga","Bandung");
-INSERT INTO m_siswa VALUES("150","1410029","Daffa Amalia Putri","SMAN 1 Baleendah","1","XB","Daffa","Perempuan","0000-00-00","Jl. Laswi no. 132 Manggahang, Baleendah","Islam","085659806625","085794588338","0","Ali Tauhid","Wiraswasta","Anita Ningsih","Pegawai Swasta","Bandung");
-INSERT INTO m_siswa VALUES("151","1410030","Purwa Rama Panji","SMAN 1 Baleendah","1","XB","Purwa ","Laki-laki","0000-00-00","Jln. Raya Banjaran Rt.08/11 Kec. Baleendah, Kp.Cin","Islam","087821253358","087821918908","0","Asep Saefudin","-","Alis Sarikanah","Ibu Rumah Tangga","Cilacap");
-INSERT INTO m_siswa VALUES("152","1410031","Annisya Fitri Melini","SMAN 1 Baleendah","1","XB","Annisya","Perempuan","0000-00-00","Komp. GPA Tahap 3 Jl. Asalia D18 no.25","Islam","082121577593","08121424765","0","Mohammad Ramdhani","Dosen","Titin Mulyawatin","Ibu Rumah Tangga","Majalengka");
-INSERT INTO m_siswa VALUES("153","1410032","Permata Hati Insans","SMAN 1 Baleendah","2","XB","Permata","Perempuan","2000-07-06","Jl. Teratai C11 no.15 Rt.01/13 Komp. GPA","Islam","082216387646","0225933463","0","Imam Ansori","Wiraswasta","Lia Vilianti","Ibu Rumah Tangga","Bandung");
+INSERT INTO m_siswa VALUES("1","1411001","Aurell Layalia S A G","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("2","1411002","Devi Wijayanti ","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("3","1411003","Fikri Muhammad P","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("4","1411004","Isna Damayanti","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("5","1411005","Jasmita Nur A","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("6","1411006","Luthfi Lathifuddin","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("7","1411007","M. Fikri Fadhillah","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("8","1411008","Muhammad Jessin P","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("9","1411009","Sophia Pujiati","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("10","1411010","Susin Ferlisya R J","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("11","1411011","Yulienda Maulida F","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("12","1411012","Tsanny Khrishna R","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("13","1411013","Venna Lestari A","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("14","1411014","Eggy Radiansyah S","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("15","1411015","M. Difa Aldira H","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("16","1411016","Vahlefi Sabil H","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("17","1411017","Tria Ananda Putri","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("18","1411018","Alnida Destiana N N","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("19","1411019","Annisya Fitri M","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("20","1411020","Daffa Amalia Putri","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("21","1411021","Diani Fahanshah","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("22","1411022","Permata Hati Insani ","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("23","1411023","Purwa Rama Panji","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("24","1411024","Sherly Dea Yolandita","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("25","1411025","Allysa Aprilia Sunardi","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("26","1411026","Mayang Ganmanah","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("27","1411027","Siti Namira Faradilla","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("28","1411028","Epi Rohaeti","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("29","1411029","Amelia Eliza","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("30","1411030","Firman Alvin D","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("31","1411031","Bunga Nabilah","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("32","1411032","Syahrul Ramdhan","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("33","1411033","Valentino Sihombing","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("34","1411034","Dwiky Maulana","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("35","1411035","Risma Dwi Nur Pratiwi","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("36","1411036","Natasha Elvina DP","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("37","1411037","Ervan Herdiansyah","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("38","1411038","Nurwenda Aqlima","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("39","1411039","M. Syauqi A","SMAN 1 Baleendah","","","-","-","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("40","1607001","Eko Cahyo Rumpoko","SD Korpri 3","","","-","Laki-laki","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("41","1607002","Nicke Suherman","SD Korpri 3","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("42","1607003","Nicki Suherman","SD Korpri 3","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("43","1607004","Bentang Nusa Samudra","SD Korpri 3","","","-","Laki-laki","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("44","1607005","Aldi Ferdhinan","SD Korpri 3","","","-","Laki-laki","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("45","1607006","Candra Putra Budianto","SD Korpri 3","","","-","Laki-laki","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("46","1607007","Fauzan Nur Ramadhan","SD Korpri 3","","","-","Laki-laki","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("47","1607008","Rahma Pahera","SD Korpri 3","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("48","1607009","Akmalia Kholisatun Muna","SD Korpri 2","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("49","1607010","Cindi Septia Ependi","SD Korpri 2","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("50","1607011","Risky Andra Setian","SD Korpri 2","","","-","Laki-laki","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("51","1607012","Zahy Rozan","SD Korpri 2","","","-","Laki-laki","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("52","1607013","Defika Dwi Ridera","SD Korpri 2","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("53","1607014","Ainismara Sassy Kirana","SD Korpri 2","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("54","1607015","Vlbie Alyvia","SD Korpri 2","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("55","1607016","Nafia Ajra Syakira","SD Korpri 2","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("56","1607017","Annisa Rahma Genita","SD Korpri 2","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("57","1607018","Wiesha Khayla Yashira","SD Korpri 2","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("58","1607019","Hasna Nur Outri Abdullah","SD Korpri 2","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("59","1607020","Belva Isnaen Alfira","SD Korpri 2","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("60","1607021","Jesi Tasya A Qisti","SD Korpri 2","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("61","1607022","Afinli Rifki Rizqulloh","SD Korpri 2","","","-","Laki-laki","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("62","1607023","Laila Putri Syahira","SD Ar-Rafi","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("63","1607024","Anjani Najma Shafa Nafisha","SD Fitrah Insani","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("64","1607025","Azka Shafa Naballa","SD Al Mabrur","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("65","1607026","Bianita Wijayanti","SD Al Mabrur","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("66","1607027","Indah Natisha","SD Al Mabrur","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("67","1607028","Shella Shelvina Anastsya","SD Korpri 1","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("68","1607029","Adi ","SD Indriyasana","","","-","Laki-laki","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("69","1607030","Anisa Fakhriyyah Candra Dewi","SD widuri","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("70","1607031","Hendro Priyono","SD Kulalet","","","-","Laki-laki","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("71","1607032","Ghesya Gyandra A.","SD Korpri 3","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("72","1607033","Aulia Lahesa Salsa","SD Korpri 3","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("73","1607034","Dinda Maharani","SD Korpri 3","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("74","1607035","Aneu Dwi Setiawati","SD Korpri 3","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("75","1607036","Salwa Esa Fadia","SD Pamengpeuk","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("76","1607037","Berlian Ramadanti Susanto","SD Korpri 2","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("77","1607038","Tegar Muharam Fadhilah","SD Korpri","","","-","Laki-laki","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("78","1607039","Berlian Ramadanti Susanto","SD Korpri 3","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("79","1607040","Humaira Fatin A.S","SD Galih Pawarti","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("80","1607041","Agnia Futri Amalia","SD Galih Pawarti","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("81","1607042","Maudina Dewi Puspaningsih","SD Galih Pawarti","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("82","1607043","Dinda Amalia Hendrawan","Al-Mabrur","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("83","1607044","Ahmad Arya Rohmatulloh","SD Korpri 3","","","-","Laki-laki","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("84","1607045","Zilan Purnama","SD Korpri 3","","","-","Laki-laki","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("85","1607046","Ilma Malika Fatihah","SD Korpri 3","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("86","1607047","Faisal Rohman Setiawan","SD Korpri 3","","","-","Laki-laki","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("87","1607048","Ayu Novitasari","SD Korpri 3","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("88","1607049","Devi Aulia Sari","SD Korpri 3","","","-","Laki-laki","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("89","1607050","Reka Maurizka","SD Korpri 3","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("90","1607051","Rega Nugraha","SD Korpri 2","","","-","Laki-laki","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("91","1607052","Rizky Azron Saputra","SD Korpri 2","","","-","Laki-laki","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("92","1607053","Tirta Yuda","SD Korpi 2","","","-","Laki-laki","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("93","1607054","Rega Nugraha","SD Korpri 2","","","-","Laki-laki","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("94","1607055","Zelita Dahlarijasty","SD Al Mabrur","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("95","1607056","Wina ","SD Al Mabrur","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("96","1607057","Salwa Tri Aulia","SD Korpri 2","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("97","1607058","Albert Nainggolan","SD Galih Pawarti","","","-","Laki-laki","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("98","1607059","Josia Hendrico S.","SD Indriyasana","","","-","Laki-laki","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("99","1607060","Zahra Nuraziza","SD Galih Pawarti","","","-","Perempuan","2000-01-01","-","-","-","-","","-","-","-","-","-");
+INSERT INTO m_siswa VALUES("100","1607061","Josia Hendrico S.","SD Indriyasana","0","6A","-","Laki-laki","2000-01-01","-","-","-","-","","-","-","-","-","-");
 
 
 DROP TABLE IF EXISTS r_jurnal;
@@ -133,26 +244,8 @@ CREATE TABLE `r_jurnal` (
   `debit` int(11) DEFAULT NULL,
   `kode_transaksi` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id_jurnal`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO r_jurnal VALUES("6","2016-07-17","D02-0170-003","fotokopi soal latihan fisika","0","50000","D0716005");
-INSERT INTO r_jurnal VALUES("7","2016-09-01","D01-0170-003","tinta spidol","0","50000","D0716006");
-INSERT INTO r_jurnal VALUES("10","2016-07-17","K01-0170-001","pendaftaran","50000","0","PB16070003");
-INSERT INTO r_jurnal VALUES("11","2016-07-17","K02-0170-002","spp annisa","200000","0","PB16070003");
-INSERT INTO r_jurnal VALUES("12","2016-07-17","K02-0170-003","","200000","0","PB16070004");
-INSERT INTO r_jurnal VALUES("14","2016-07-20","D02-0716-004","fotokopi soal latihan fisika","0","200000","DE1607001");
-INSERT INTO r_jurnal VALUES("15","2016-07-20","K01-0716-002","Pendaftaran (Diani Fahanshah)","50000","0","PB16070006");
-INSERT INTO r_jurnal VALUES("16","2016-07-20","K02-0716-004","SPP Diani Fahanshah (07/2016)","200000","0","PB16070006");
-INSERT INTO r_jurnal VALUES("17","2015-01-12","D01-0115-004","map","0","15000","DE1607002");
-INSERT INTO r_jurnal VALUES("22","2015-07-20","K01-0716-005","Pendaftaran (Eggy Radiansyah S)","50000","0","PB16070010");
-INSERT INTO r_jurnal VALUES("23","2015-07-20","K02-0716-007","SPP Eggy Radiansyah S (01/2015)","200000","0","PB16070010");
-INSERT INTO r_jurnal VALUES("24","2016-07-21","K02-0716-008","SPP Muhammad Jessin P (07/2016)","200000","0","PB16070012");
-INSERT INTO r_jurnal VALUES("25","2016-07-21","D08-0716-001","Jemputan bulan juli minggu ke satu","0","125000","DE1607003");
-INSERT INTO r_jurnal VALUES("26","2016-07-21","D06-0716-002","Honor Guru - Kumaedah Khasanah, S.Pd (01-2015)","0","660000","HG1607003");
-INSERT INTO r_jurnal VALUES("27","2016-07-21","D06-0716-003","Honor Guru - Titin K, M.Pd (07-2016)","0","115000","HG1607004");
-INSERT INTO r_jurnal VALUES("28","2016-07-21","K02-0716-009","SPP M. Difa Aldira H (06/2015)","200000","0","PB16070013");
-INSERT INTO r_jurnal VALUES("29","2016-07-21","K02-0716-010","SPP M. Difa Aldira H (05/2015)","200000","0","PB16070013");
-INSERT INTO r_jurnal VALUES("30","2014-12-31","D07-1214-001","sisa bulan sebelumnya","0","-4851000","DE1607004");
 
 
 DROP TABLE IF EXISTS t_absen_guru;
@@ -164,25 +257,8 @@ CREATE TABLE `t_absen_guru` (
   `jumlah_jam` int(2) DEFAULT NULL,
   `tingkat` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id_absen_guru`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO t_absen_guru VALUES("1","2015-01-06","G007","2","SMA");
-INSERT INTO t_absen_guru VALUES("2","2015-01-08","G007","2","SMA");
-INSERT INTO t_absen_guru VALUES("3","2015-01-12","G007","2","SMA");
-INSERT INTO t_absen_guru VALUES("4","2015-01-22","G007","2","SMA");
-INSERT INTO t_absen_guru VALUES("6","2015-01-15","G007","2","SMA");
-INSERT INTO t_absen_guru VALUES("7","2015-01-27","G007","2","SMA");
-INSERT INTO t_absen_guru VALUES("8","2015-01-29","G007","2","SMA");
-INSERT INTO t_absen_guru VALUES("9","2015-01-12","G010","2","SMA");
-INSERT INTO t_absen_guru VALUES("10","2015-01-19","G010","2","SMA");
-INSERT INTO t_absen_guru VALUES("11","2015-01-06","G009","2","SMA");
-INSERT INTO t_absen_guru VALUES("12","2015-01-15","G009","2","SMA");
-INSERT INTO t_absen_guru VALUES("13","2015-01-19","G009","2","SMA");
-INSERT INTO t_absen_guru VALUES("14","2015-01-08","G001","3","SMA");
-INSERT INTO t_absen_guru VALUES("15","2015-01-16","G001","2","SMA");
-INSERT INTO t_absen_guru VALUES("16","2015-01-22","G001","2","SMA");
-INSERT INTO t_absen_guru VALUES("17","2015-01-29","G001","2","SMA");
-INSERT INTO t_absen_guru VALUES("18","2016-07-21","G001","2","SMA");
 
 
 DROP TABLE IF EXISTS t_absen_siswa;
@@ -195,32 +271,8 @@ CREATE TABLE `t_absen_siswa` (
   `kelas` varchar(20) DEFAULT NULL,
   `pertemuan` int(2) DEFAULT NULL,
   PRIMARY KEY (`id_absen_siswa`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO t_absen_siswa VALUES("7","1410022","2016-07-28","Hadir","XA","2");
-INSERT INTO t_absen_siswa VALUES("8","1410023","2016-07-28","Alfa","XA","2");
-INSERT INTO t_absen_siswa VALUES("9","1410024","2016-07-28","Alfa","XA","2");
-INSERT INTO t_absen_siswa VALUES("10","1410025","2016-07-28","Hadir","XA","2");
-INSERT INTO t_absen_siswa VALUES("11","1410027","2016-07-28","Hadir","XA","2");
-INSERT INTO t_absen_siswa VALUES("12","1410028","2016-07-28","Hadir","XA","2");
-INSERT INTO t_absen_siswa VALUES("13","1410022","2016-07-21","Hadir","XA","1");
-INSERT INTO t_absen_siswa VALUES("14","1410023","2016-07-21","Alfa","XA","1");
-INSERT INTO t_absen_siswa VALUES("15","1410024","2016-07-21","Hadir","XA","1");
-INSERT INTO t_absen_siswa VALUES("16","1410025","2016-07-21","Hadir","XA","1");
-INSERT INTO t_absen_siswa VALUES("17","1410027","2016-07-21","Hadir","XA","1");
-INSERT INTO t_absen_siswa VALUES("18","1410028","2016-07-21","Hadir","XA","1");
-INSERT INTO t_absen_siswa VALUES("19","1410022","2016-07-22","Hadir","XA","4");
-INSERT INTO t_absen_siswa VALUES("20","1410023","2016-07-22","Hadir","XA","4");
-INSERT INTO t_absen_siswa VALUES("21","1410024","2016-07-22","Hadir","XA","4");
-INSERT INTO t_absen_siswa VALUES("22","1410025","2016-07-22","Hadir","XA","4");
-INSERT INTO t_absen_siswa VALUES("23","1410027","2016-07-22","Alfa","XA","4");
-INSERT INTO t_absen_siswa VALUES("24","1410028","2016-07-22","Hadir","XA","4");
-INSERT INTO t_absen_siswa VALUES("25","1410022","2016-07-23","Hadir","XA","5");
-INSERT INTO t_absen_siswa VALUES("26","1410023","2016-07-23","Hadir","XA","5");
-INSERT INTO t_absen_siswa VALUES("27","1410024","2016-07-23","Hadir","XA","5");
-INSERT INTO t_absen_siswa VALUES("28","1410025","2016-07-23","Hadir","XA","5");
-INSERT INTO t_absen_siswa VALUES("29","1410027","2016-07-23","Hadir","XA","5");
-INSERT INTO t_absen_siswa VALUES("30","1410028","2016-07-23","Alfa","XA","5");
 
 
 DROP TABLE IF EXISTS t_gaji_guru;
@@ -240,10 +292,8 @@ CREATE TABLE `t_gaji_guru` (
   `tgl_gaji_guru` date DEFAULT NULL,
   `tingkat` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id_gaji_guru`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO t_gaji_guru VALUES("1","HG1607003","G007","01-2015","14","40000","2","25000","2","25000","1","2016-07-21","SMA");
-INSERT INTO t_gaji_guru VALUES("2","HG1607004","G001","07-2016","2","45000","1","25000","","25000","1","2016-07-21","SMA");
 
 
 DROP TABLE IF EXISTS t_pembayaran_detail;
@@ -257,17 +307,8 @@ CREATE TABLE `t_pembayaran_detail` (
   `keterangan` text,
   `tahun` int(4) DEFAULT NULL,
   PRIMARY KEY (`id_pembayaran_detail`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO t_pembayaran_detail VALUES("3","PB16070008","K01","","50000","","0");
-INSERT INTO t_pembayaran_detail VALUES("4","PB16070008","K02","02","200000","","2015");
-INSERT INTO t_pembayaran_detail VALUES("5","PB16070009","K01","","50000","","0");
-INSERT INTO t_pembayaran_detail VALUES("6","PB16070009","K02","01","200000","","2015");
-INSERT INTO t_pembayaran_detail VALUES("7","PB16070010","K01","","50000","","0");
-INSERT INTO t_pembayaran_detail VALUES("8","PB16070010","K02","01","200000","","2015");
-INSERT INTO t_pembayaran_detail VALUES("9","PB16070012","K02","07","200000","","2016");
-INSERT INTO t_pembayaran_detail VALUES("10","PB16070013","K02","06","200000","","2015");
-INSERT INTO t_pembayaran_detail VALUES("11","PB16070013","K02","05","200000","","2015");
 
 
 DROP TABLE IF EXISTS t_pembayaran_header;
@@ -279,13 +320,8 @@ CREATE TABLE `t_pembayaran_header` (
   `status` varchar(10) DEFAULT NULL,
   `tgl_pembayaran` date DEFAULT NULL,
   PRIMARY KEY (`id_spp`,`kode_pembayaran`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO t_pembayaran_header VALUES("1","PB16070007","","","2016-07-20");
-INSERT INTO t_pembayaran_header VALUES("4","PB16070010","1410022","Lunas","2016-07-20");
-INSERT INTO t_pembayaran_header VALUES("5","PB16070011","","","2016-07-21");
-INSERT INTO t_pembayaran_header VALUES("6","PB16070012","1410024","Lunas","2016-07-21");
-INSERT INTO t_pembayaran_header VALUES("7","PB16070013","1410023","Lunas","2016-07-21");
 
 
 DROP TABLE IF EXISTS t_pembuatan_dokumen;
@@ -298,17 +334,8 @@ CREATE TABLE `t_pembuatan_dokumen` (
   `tipe_dok` varchar(20) DEFAULT NULL,
   `tingkat` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id_pembuatan_dok`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO t_pembuatan_dokumen VALUES("1","2015-01-05","G007","materi fisika 1","Materi","SMA");
-INSERT INTO t_pembuatan_dokumen VALUES("2","2015-01-12","G007","materi fisika 2","Materi","SMA");
-INSERT INTO t_pembuatan_dokumen VALUES("3","2015-01-05","G007","soal TO ","Soal","SMA");
-INSERT INTO t_pembuatan_dokumen VALUES("4","2015-01-12","G007","soal TO","Soal","SMA");
-INSERT INTO t_pembuatan_dokumen VALUES("5","2015-01-05","G009","materi kimia 2","Materi","SMA");
-INSERT INTO t_pembuatan_dokumen VALUES("6","2015-01-12","G009","soal TO","Soal","SMA");
-INSERT INTO t_pembuatan_dokumen VALUES("7","2015-01-12","G001","soal TO","Soal","SMA");
-INSERT INTO t_pembuatan_dokumen VALUES("8","2016-07-20","G001","materi mtk","Materi","SMA");
-INSERT INTO t_pembuatan_dokumen VALUES("9","2016-07-21","G001","materi mtk","Materi","SMA");
 
 
 DROP TABLE IF EXISTS t_pengeluaran;
@@ -321,10 +348,8 @@ CREATE TABLE `t_pengeluaran` (
   `keterangan` text,
   `jumlah` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_pengeluaran`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO t_pengeluaran VALUES("1","DE1607003","2016-07-21","D08","Jemputan bulan juli minggu ke satu","125000");
-INSERT INTO t_pengeluaran VALUES("2","DE1607004","2014-12-31","D07","sisa bulan sebelumnya","-4851000");
 
 
 DROP TABLE IF EXISTS u_counter;
@@ -334,28 +359,11 @@ CREATE TABLE `u_counter` (
   `pattern` varchar(20) NOT NULL,
   `counter` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
-INSERT INTO u_counter VALUES("1","2015","141");
-INSERT INTO u_counter VALUES("4","3400","141");
-INSERT INTO u_counter VALUES("6","2016","4");
-INSERT INTO u_counter VALUES("5","3000","141");
 INSERT INTO u_counter VALUES("7","TR","9");
-INSERT INTO u_counter VALUES("8","K0716","5");
-INSERT INTO u_counter VALUES("9","D0716","7");
-INSERT INTO u_counter VALUES("10","D01-0170","4");
-INSERT INTO u_counter VALUES("11","D02-0170","4");
-INSERT INTO u_counter VALUES("12","D03-0170","1");
-INSERT INTO u_counter VALUES("13","PMB1607","1");
-INSERT INTO u_counter VALUES("14","PB1607","13");
-INSERT INTO u_counter VALUES("15","K02-0170","10");
-INSERT INTO u_counter VALUES("16","K01-0170","5");
+INSERT INTO u_counter VALUES("23","1607","61");
 INSERT INTO u_counter VALUES("17","G","10");
-INSERT INTO u_counter VALUES("18","HG1607","4");
-INSERT INTO u_counter VALUES("19","D06-0170","3");
-INSERT INTO u_counter VALUES("20","DE1607","4");
-INSERT INTO u_counter VALUES("21","D08-0170","1");
-INSERT INTO u_counter VALUES("22","D07-0170","1");
 
 
 DROP TABLE IF EXISTS u_list_code;
@@ -367,7 +375,7 @@ CREATE TABLE `u_list_code` (
   `nama_list` varchar(100) DEFAULT NULL,
   `date` datetime DEFAULT NULL,
   PRIMARY KEY (`id_list_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=latin1;
 
 INSERT INTO u_list_code VALUES("1","AG","","Agama","2016-07-13 00:00:00");
 INSERT INTO u_list_code VALUES("2","AG","AG","Islam","2016-07-14 00:00:00");
@@ -383,8 +391,6 @@ INSERT INTO u_list_code VALUES("12","JK","","Jenis Kelamin","2016-08-27 00:00:00
 INSERT INTO u_list_code VALUES("13","L","JK","Laki-laki","2016-08-28 00:00:00");
 INSERT INTO u_list_code VALUES("14","P","JK","Perempuan","2016-08-29 00:00:00");
 INSERT INTO u_list_code VALUES("15","KLS","","Kelas","2016-07-14 10:53:01");
-INSERT INTO u_list_code VALUES("16","XA","KLS","XA","2016-07-14 10:53:18");
-INSERT INTO u_list_code VALUES("17","XB","KLS","XB","2016-07-14 10:53:30");
 INSERT INTO u_list_code VALUES("18","JL","","Jurnal","2016-07-16 13:12:11");
 INSERT INTO u_list_code VALUES("19","K01","JL","Pendaftaran","2016-07-16 13:12:41");
 INSERT INTO u_list_code VALUES("20","K02","JL","SPP","2016-07-16 13:12:58");
@@ -403,9 +409,31 @@ INSERT INTO u_list_code VALUES("40","SMA","TK","SMA","2016-07-20 12:53:51");
 INSERT INTO u_list_code VALUES("41","TD","","Tipe Dokumen","2016-07-20 14:00:23");
 INSERT INTO u_list_code VALUES("42","MT","TD","Materi","2016-07-20 14:00:42");
 INSERT INTO u_list_code VALUES("43","SL","TD","Soal","2016-07-20 14:00:54");
-INSERT INTO u_list_code VALUES("44","XC","KLS","XC","2016-07-20 16:14:27");
-INSERT INTO u_list_code VALUES("45","XIA","KLS","XIA","2016-07-20 16:14:48");
 INSERT INTO u_list_code VALUES("46","D08","JL","Jemputan","2016-07-21 20:30:03");
+INSERT INTO u_list_code VALUES("47","5","KLS","5","2016-07-24 01:15:04");
+INSERT INTO u_list_code VALUES("48","6A","KLS","6A","2016-07-24 01:15:21");
+INSERT INTO u_list_code VALUES("49","6B","KLS","6B","2016-07-24 01:15:41");
+INSERT INTO u_list_code VALUES("50","7A","KLS","7A","2016-07-24 01:15:57");
+INSERT INTO u_list_code VALUES("51","7B","KLS","7B","2016-07-24 01:17:56");
+INSERT INTO u_list_code VALUES("52","8A","KLS","8A","2016-07-24 01:18:10");
+INSERT INTO u_list_code VALUES("53","8B","KLS","8B","2016-07-24 01:18:28");
+INSERT INTO u_list_code VALUES("54","9A","KLS","9A","2016-07-24 01:19:10");
+INSERT INTO u_list_code VALUES("55","9B","KLS","9B","2016-07-24 01:19:23");
+INSERT INTO u_list_code VALUES("56","10A","KLS","10A","2016-07-24 01:19:37");
+INSERT INTO u_list_code VALUES("57","11A","KLS","11A","2016-07-24 01:19:50");
+INSERT INTO u_list_code VALUES("58","11B","KLS","11B","2016-07-24 01:20:07");
+INSERT INTO u_list_code VALUES("59","12A","KLS","12A","2016-07-24 01:20:35");
+INSERT INTO u_list_code VALUES("60","MP","","Mata Pelajaran","2016-07-24 01:23:03");
+INSERT INTO u_list_code VALUES("61","IPA","MP","IPA","2016-07-24 01:23:23");
+INSERT INTO u_list_code VALUES("62","BIN","MP","Bahasa Indonesia","2016-07-24 01:24:00");
+INSERT INTO u_list_code VALUES("63","BIG","MP","Bahasa Inggris","2016-07-24 01:24:26");
+INSERT INTO u_list_code VALUES("64","MTK","MP","Matematika","2016-07-24 01:24:45");
+INSERT INTO u_list_code VALUES("65","FIS","MP","Fisika","2016-07-24 01:25:11");
+INSERT INTO u_list_code VALUES("66","BIO","MP","Biologi","2016-07-24 01:25:34");
+INSERT INTO u_list_code VALUES("67","KIM","MP","Kimia","2016-07-24 01:25:50");
+INSERT INTO u_list_code VALUES("68","MWA","MP","Matematika Wajib","2016-07-24 01:26:25");
+INSERT INTO u_list_code VALUES("69","MMI","MP","Matematika Minat","2016-07-24 01:26:42");
+INSERT INTO u_list_code VALUES("70","IPS","MP","IPS","2016-07-24 10:21:33");
 
 
 DROP TABLE IF EXISTS u_modul;
@@ -417,7 +445,7 @@ CREATE TABLE `u_modul` (
   `kategori` varchar(10) DEFAULT NULL,
   `link` text,
   PRIMARY KEY (`id_modul`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 INSERT INTO u_modul VALUES("3","M001","Siswa","M","master/siswa");
 INSERT INTO u_modul VALUES("4","M002","Guru","M","master/guru");
@@ -437,6 +465,7 @@ INSERT INTO u_modul VALUES("22","R002","Rekap SPP","R","report/rekap_spp");
 INSERT INTO u_modul VALUES("23","U005","Setting","U","utility/setting");
 INSERT INTO u_modul VALUES("24","T003","Pembuatan Dokumen","T","transaksi/pembuatan_dokumen");
 INSERT INTO u_modul VALUES("25","T006","Gaji Guru","T","transaksi/gaji_guru");
+INSERT INTO u_modul VALUES("26","M003","Jadwal","M","master/jadwal");
 
 
 DROP TABLE IF EXISTS u_role;
@@ -449,7 +478,7 @@ CREATE TABLE `u_role` (
   PRIMARY KEY (`id_role`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
-INSERT INTO u_role VALUES("2","super_admin","M001,M002,T001,T002,T003,T004,T005,T006,R001,R002,R003,R004,U001,U002,U003,U004,U005,U006,U007","R001");
+INSERT INTO u_role VALUES("2","super_admin","M001,M002,M003,T001,T002,T004,T005,T003,T006,R001,R003,R002,U001,U003,U002,U004,U006,U007,U005","R001");
 INSERT INTO u_role VALUES("3","admin","M001,M002,T001,T002,R001","R002");
 INSERT INTO u_role VALUES("4","admin siswa","M001","R01234");
 
@@ -462,7 +491,7 @@ CREATE TABLE `u_setting` (
   `value_setting` varchar(20) DEFAULT NULL,
   `nama_setting` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id_setting`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 INSERT INTO u_setting VALUES("1","THA","2015","Tahun Awal");
 INSERT INTO u_setting VALUES("2","HG_SD","25000","Honor Guru (SD)");
@@ -471,6 +500,7 @@ INSERT INTO u_setting VALUES("4","HG_SMA","45000","Honor Guru (SMA)");
 INSERT INTO u_setting VALUES("5","HG_S","25000","Honor Guru (Soal)");
 INSERT INTO u_setting VALUES("6","HG_M","25000","Honor Guru (Materi)");
 INSERT INTO u_setting VALUES("7","SPP_SD","160000","Bulanan SD");
+INSERT INTO u_setting VALUES("8","TA","2016/2017","Tahun Ajaran");
 
 
 DROP TABLE IF EXISTS u_user;
@@ -493,12 +523,6 @@ INSERT INTO u_user VALUES("6","Andi Wiguna","admin","admin","email@mail.com","1"
 INSERT INTO u_user VALUES("7","echa","chaa","1234","echa@gmail.com","1","admin siswa","2016-07-22 16:04:44","021");
 
 
-DROP TABLE IF EXISTS view_kpi;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_kpi` AS select `mp`.`planning_no` AS `planning_no`,(select `mw`.`type` from `m_wo` `mw` where (`mp`.`wo` = `mw`.`no_wo`)) AS `type_job`,(select `ul`.`nama_list` from `u_list_code` `ul` where ((`ul`.`head_list` = 'DP') and (`ul`.`kode_list` = (select `mw`.`dept` from `m_wo` `mw` where (`mp`.`wo` = `mw`.`no_wo`))))) AS `depart` from `m_planning` `mp`;
-
-
-
 DROP TABLE IF EXISTS view_list_code;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_list_code` AS select `ul`.`id_list_code` AS `id_list_code`,`ul`.`kode_list` AS `kode_list`,`ul`.`head_list` AS `head_list`,`ul`.`nama_list` AS `nama_list`,`ul`.`date` AS `date`,(select count(`ul1`.`id_list_code`) from `u_list_code` `ul1` where (`ul`.`kode_list` = `ul1`.`head_list`)) AS `jml_list` from `u_list_code` `ul` where isnull(`ul`.`head_list`);
@@ -506,26 +530,16 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 INSERT INTO view_list_code VALUES("1","AG","","Agama","2016-07-13 00:00:00","5");
 INSERT INTO view_list_code VALUES("7","MD","","Modul","2016-08-21 00:00:00","4");
 INSERT INTO view_list_code VALUES("12","JK","","Jenis Kelamin","2016-08-27 00:00:00","2");
-INSERT INTO view_list_code VALUES("15","KLS","","Kelas","2016-07-14 10:53:01","4");
+INSERT INTO view_list_code VALUES("15","KLS","","Kelas","2016-07-14 10:53:01","13");
 INSERT INTO view_list_code VALUES("18","JL","","Jurnal","2016-07-16 13:12:11","10");
 INSERT INTO view_list_code VALUES("37","TK","","Tingkat","2016-07-20 12:53:15","3");
 INSERT INTO view_list_code VALUES("41","TD","","Tipe Dokumen","2016-07-20 14:00:23","2");
+INSERT INTO view_list_code VALUES("60","MP","","Mata Pelajaran","2016-07-24 01:23:03","10");
 
 
 DROP TABLE IF EXISTS view_pembayaran_spp;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_pembayaran_spp` AS select `pd`.`kode_pembayaran` AS `kode_pembayaran`,(select `ph`.`kode_siswa` from `t_pembayaran_header` `ph` where (`ph`.`kode_pembayaran` = `pd`.`kode_pembayaran`)) AS `kode_siswa`,(select `ph`.`tgl_pembayaran` from `t_pembayaran_header` `ph` where (`ph`.`kode_pembayaran` = `pd`.`kode_pembayaran`)) AS `tgl_pembayaran`,concat(`pd`.`bulan`,'-',`pd`.`tahun`) AS `pembayaran`,count(`pd`.`id_pembayaran_detail`) AS `jml` from `t_pembayaran_detail` `pd` where ((concat(`pd`.`bulan`,'-',`pd`.`tahun`) is not null) and (substr(`pd`.`jenis_pembayaran`,1,3) = 'K02')) group by `pd`.`kode_pembayaran`;
-
-INSERT INTO view_pembayaran_spp VALUES("PB16070008","","","02-2015","1");
-INSERT INTO view_pembayaran_spp VALUES("PB16070009","","","01-2015","1");
-INSERT INTO view_pembayaran_spp VALUES("PB16070010","1410022","2016-07-20","01-2015","1");
-INSERT INTO view_pembayaran_spp VALUES("PB16070012","1410024","2016-07-21","07-2016","1");
-INSERT INTO view_pembayaran_spp VALUES("PB16070013","1410023","2016-07-21","06-2015","2");
-
-
-DROP TABLE IF EXISTS view_planning;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_planning` AS select `mp`.`planning_no` AS `planning_no`,`mp`.`wo` AS `wo`,`mp`.`week` AS `week`,`mp`.`year` AS `year`,(select `mw`.`type` from `m_wo` `mw` where (`mp`.`wo` = `mw`.`no_wo`)) AS `type_job`,(select `ul`.`nama_list` from `u_list_code` `ul` where (`ul`.`kode_list` = (select `mw`.`type` from `m_wo` `mw` where (`mp`.`wo` = `mw`.`no_wo`)))) AS `label_type_job`,(select `mw`.`dept` from `m_wo` `mw` where (`mp`.`wo` = `mw`.`no_wo`)) AS `dept`,(select `ul`.`nama_list` from `u_list_code` `ul` where (`ul`.`kode_list` = (select `mw`.`dept` from `m_wo` `mw` where (`mp`.`wo` = `mw`.`no_wo`)))) AS `label_dept`,(select `mw`.`keterangan` from `m_wo` `mw` where (`mp`.`wo` = `mw`.`no_wo`)) AS `ket` from `m_planning` `mp` order by `mp`.`week`;
 
 
 
@@ -533,33 +547,23 @@ DROP TABLE IF EXISTS view_r_jurnal;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_r_jurnal` AS select distinct date_format(`r`.`tgl_jurnal`,'%Y-%m') AS `bulan_tahun`,(select (sum(`r1`.`kredit`) - sum(`r1`.`debit`)) from `r_jurnal` `r1` where (date_format(`r1`.`tgl_jurnal`,'%Y-%m') < date_format(`r`.`tgl_jurnal`,'%Y-%m'))) AS `sisa_bulan_sebelumnya` from `r_jurnal` `r` order by date_format(`r`.`tgl_jurnal`,'%Y-%m');
 
-INSERT INTO view_r_jurnal VALUES("2014-12","");
-INSERT INTO view_r_jurnal VALUES("2015-01","4851000");
-INSERT INTO view_r_jurnal VALUES("2015-07","4836000");
-INSERT INTO view_r_jurnal VALUES("2016-07","5086000");
-INSERT INTO view_r_jurnal VALUES("2016-09","5236000");
 
 
 DROP TABLE IF EXISTS view_r_rekap_gaji;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_r_rekap_gaji` AS select date_format(`t`.`tgl_absen`,'%m-%Y') AS `bulan_tahun`,`t`.`kode_guru` AS `kode_guru`,(select `g`.`nama_guru` from `m_guru` `g` where (`g`.`kode_guru` = `t`.`kode_guru`)) AS `nama_guru`,sum(`t`.`jumlah_jam`) AS `jml_jam`,'2' AS `jml_materi`,'2' AS `jml_soal` from `t_absen_guru` `t` group by date_format(`t`.`tgl_absen`,'%m-%Y'),`t`.`kode_guru`;
 
-INSERT INTO view_r_rekap_gaji VALUES("01-2015","G001","Titin K, M.Pd","9","2","2");
-INSERT INTO view_r_rekap_gaji VALUES("01-2015","G007","Kumaedah Khasanah, S.Pd","14","2","2");
-INSERT INTO view_r_rekap_gaji VALUES("01-2015","G009","Fadli Salman, S.Pd","6","2","2");
-INSERT INTO view_r_rekap_gaji VALUES("01-2015","G010","Annisa, S.Pd","4","2","2");
-INSERT INTO view_r_rekap_gaji VALUES("07-2016","G001","Titin K, M.Pd","2","2","2");
 
 
 DROP TABLE IF EXISTS view_t_absen_siswa;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_t_absen_siswa` AS select distinct date_format(`t`.`tanggal`,'%m') AS `bulan`,date_format(`t`.`tanggal`,'%Y') AS `tahun`,`t`.`kelas` AS `kelas`,(select count(`t1`.`id_absen_siswa`) from `t_absen_siswa` `t1` where ((date_format(`t1`.`tanggal`,'%m') = date_format(`t`.`tanggal`,'%m')) and (`t1`.`kelas` = `t`.`kelas`) and (`t1`.`keterangan` = 'Hadir') and (`t1`.`pertemuan` = 1))) AS `jml_hadir_p1`,(select count(`t1`.`id_absen_siswa`) from `t_absen_siswa` `t1` where ((date_format(`t1`.`tanggal`,'%m') = date_format(`t`.`tanggal`,'%m')) and (`t1`.`kelas` = `t`.`kelas`) and (`t1`.`keterangan` <> 'Hadir') and (`t1`.`pertemuan` = 1))) AS `jml_alfa_p1`,(select count(`t1`.`id_absen_siswa`) from `t_absen_siswa` `t1` where ((date_format(`t1`.`tanggal`,'%m') = date_format(`t`.`tanggal`,'%m')) and (`t1`.`kelas` = `t`.`kelas`) and (`t1`.`keterangan` = 'Hadir') and (`t1`.`pertemuan` = 2))) AS `jml_hadir_p2`,(select count(`t1`.`id_absen_siswa`) from `t_absen_siswa` `t1` where ((date_format(`t1`.`tanggal`,'%m') = date_format(`t`.`tanggal`,'%m')) and (`t1`.`kelas` = `t`.`kelas`) and (`t1`.`keterangan` <> 'Hadir') and (`t1`.`pertemuan` = 2))) AS `jml_alfa_p2`,(select count(`t1`.`id_absen_siswa`) from `t_absen_siswa` `t1` where ((date_format(`t1`.`tanggal`,'%m') = date_format(`t`.`tanggal`,'%m')) and (`t1`.`kelas` = `t`.`kelas`) and (`t1`.`keterangan` = 'Hadir') and (`t1`.`pertemuan` = 3))) AS `jml_hadir_p3`,(select count(`t1`.`id_absen_siswa`) from `t_absen_siswa` `t1` where ((date_format(`t1`.`tanggal`,'%m') = date_format(`t`.`tanggal`,'%m')) and (`t1`.`kelas` = `t`.`kelas`) and (`t1`.`keterangan` <> 'Hadir') and (`t1`.`pertemuan` = 3))) AS `jml_alfa_p3`,(select count(`t1`.`id_absen_siswa`) from `t_absen_siswa` `t1` where ((date_format(`t1`.`tanggal`,'%m') = date_format(`t`.`tanggal`,'%m')) and (`t1`.`kelas` = `t`.`kelas`) and (`t1`.`keterangan` = 'Hadir') and (`t1`.`pertemuan` = 4))) AS `jml_hadir_p4`,(select count(`t1`.`id_absen_siswa`) from `t_absen_siswa` `t1` where ((date_format(`t1`.`tanggal`,'%m') = date_format(`t`.`tanggal`,'%m')) and (`t1`.`kelas` = `t`.`kelas`) and (`t1`.`keterangan` <> 'Hadir') and (`t1`.`pertemuan` = 4))) AS `jml_alfa_p4`,(select count(`t1`.`id_absen_siswa`) from `t_absen_siswa` `t1` where ((date_format(`t1`.`tanggal`,'%m') = date_format(`t`.`tanggal`,'%m')) and (`t1`.`kelas` = `t`.`kelas`) and (`t1`.`keterangan` = 'Hadir') and (`t1`.`pertemuan` = 5))) AS `jml_hadir_p5`,(select count(`t1`.`id_absen_siswa`) from `t_absen_siswa` `t1` where ((date_format(`t1`.`tanggal`,'%m') = date_format(`t`.`tanggal`,'%m')) and (`t1`.`kelas` = `t`.`kelas`) and (`t1`.`keterangan` <> 'Hadir') and (`t1`.`pertemuan` = 5))) AS `jml_alfa_p5`,(select count(`t1`.`id_absen_siswa`) from `t_absen_siswa` `t1` where ((date_format(`t1`.`tanggal`,'%m') = date_format(`t`.`tanggal`,'%m')) and (`t1`.`kelas` = `t`.`kelas`) and (`t1`.`keterangan` = 'Hadir') and (`t1`.`pertemuan` = 6))) AS `jml_hadir_p6`,(select count(`t1`.`id_absen_siswa`) from `t_absen_siswa` `t1` where ((date_format(`t1`.`tanggal`,'%m') = date_format(`t`.`tanggal`,'%m')) and (`t1`.`kelas` = `t`.`kelas`) and (`t1`.`keterangan` <> 'Hadir') and (`t1`.`pertemuan` = 6))) AS `jml_alfa_p6`,(select count(`t1`.`id_absen_siswa`) from `t_absen_siswa` `t1` where ((date_format(`t1`.`tanggal`,'%m') = date_format(`t`.`tanggal`,'%m')) and (`t1`.`kelas` = `t`.`kelas`) and (`t1`.`keterangan` = 'Hadir') and (`t1`.`pertemuan` = 7))) AS `jml_hadir_p7`,(select count(`t1`.`id_absen_siswa`) from `t_absen_siswa` `t1` where ((date_format(`t1`.`tanggal`,'%m') = date_format(`t`.`tanggal`,'%m')) and (`t1`.`kelas` = `t`.`kelas`) and (`t1`.`keterangan` <> 'Hadir') and (`t1`.`pertemuan` = 7))) AS `jml_alfa_p7`,(select count(`t1`.`id_absen_siswa`) from `t_absen_siswa` `t1` where ((date_format(`t1`.`tanggal`,'%m') = date_format(`t`.`tanggal`,'%m')) and (`t1`.`kelas` = `t`.`kelas`) and (`t1`.`keterangan` = 'Hadir') and (`t1`.`pertemuan` = 8))) AS `jml_hadir_p8`,(select count(`t1`.`id_absen_siswa`) from `t_absen_siswa` `t1` where ((date_format(`t1`.`tanggal`,'%m') = date_format(`t`.`tanggal`,'%m')) and (`t1`.`kelas` = `t`.`kelas`) and (`t1`.`keterangan` <> 'Hadir') and (`t1`.`pertemuan` = 8))) AS `jml_alfa_p8`,(select count(`t1`.`id_absen_siswa`) from `t_absen_siswa` `t1` where ((date_format(`t1`.`tanggal`,'%m') = date_format(`t`.`tanggal`,'%m')) and (`t1`.`kelas` = `t`.`kelas`) and (`t1`.`keterangan` = 'Hadir') and (`t1`.`pertemuan` = 9))) AS `jml_hadir_p9`,(select count(`t1`.`id_absen_siswa`) from `t_absen_siswa` `t1` where ((date_format(`t1`.`tanggal`,'%m') = date_format(`t`.`tanggal`,'%m')) and (`t1`.`kelas` = `t`.`kelas`) and (`t1`.`keterangan` <> 'Hadir') and (`t1`.`pertemuan` = 9))) AS `jml_alfa_p9`,(select count(`t1`.`id_absen_siswa`) from `t_absen_siswa` `t1` where ((date_format(`t1`.`tanggal`,'%m') = date_format(`t`.`tanggal`,'%m')) and (`t1`.`kelas` = `t`.`kelas`) and (`t1`.`keterangan` = 'Hadir') and (`t1`.`pertemuan` = 10))) AS `jml_hadir_p10`,(select count(`t1`.`id_absen_siswa`) from `t_absen_siswa` `t1` where ((date_format(`t1`.`tanggal`,'%m') = date_format(`t`.`tanggal`,'%m')) and (`t1`.`kelas` = `t`.`kelas`) and (`t1`.`keterangan` <> 'Hadir') and (`t1`.`pertemuan` = 10))) AS `jml_alfa_p10` from `t_absen_siswa` `t`;
 
-INSERT INTO view_t_absen_siswa VALUES("07","2016","XA","5","1","4","2","0","0","5","1","5","1","0","0","0","0","0","0","0","0","0","0");
 
 
 DROP TABLE IF EXISTS view_t_gaji_guru;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_t_gaji_guru` AS select distinct date_format(`t`.`tgl_absen`,'%m-%Y') AS `bulan_tahun`,`t`.`tingkat` AS `tingkat`,`t`.`kode_guru` AS `kode_guru`,(select `g`.`nama_guru` from `m_guru` `g` where (`g`.`kode_guru` = `t`.`kode_guru`)) AS `nama_guru`,(select `g`.`mata_pelajaran` from `m_guru` `g` where (`g`.`kode_guru` = `t`.`kode_guru`)) AS `mapel`,(select sum(`t1`.`jumlah_jam`) from `t_absen_guru` `t1` where ((`t1`.`kode_guru` = `t`.`kode_guru`) and (`t1`.`tingkat` = `t`.`tingkat`) and (date_format(`t1`.`tgl_absen`,'%Y-%m') = date_format(`t`.`tgl_absen`,'%Y-%m'))) group by `t1`.`kode_guru`) AS `jml_absen`,(select `s`.`value_setting` from `u_setting` `s` where (`s`.`kode_setting` = concat('HG_',`t`.`tingkat`))) AS `honor_mengajar`,(select count(`tp`.`id_pembuatan_dok`) from `t_pembuatan_dokumen` `tp` where ((`tp`.`kode_guru` = `t`.`kode_guru`) and (`tp`.`tingkat` = `t`.`tingkat`) and (date_format(`tp`.`tgl_pembuatan_dok`,'%Y-%m') = date_format(`t`.`tgl_absen`,'%Y-%m')) and (`tp`.`tipe_dok` = 'Materi')) group by `tp`.`kode_guru`) AS `jml_materi`,(select `s`.`value_setting` from `u_setting` `s` where (`s`.`kode_setting` = 'HG_M')) AS `honor_materi`,(select count(`tp`.`id_pembuatan_dok`) from `t_pembuatan_dokumen` `tp` where ((`tp`.`kode_guru` = `t`.`kode_guru`) and (`tp`.`tingkat` = `t`.`tingkat`) and (date_format(`tp`.`tgl_pembuatan_dok`,'%Y-%m') = date_format(`t`.`tgl_absen`,'%Y-%m')) and (`tp`.`tipe_dok` = 'Soal')) group by `tp`.`kode_guru`) AS `jml_soal`,(select `s`.`value_setting` from `u_setting` `s` where (`s`.`kode_setting` = 'HG_S')) AS `honor_soal`,(select `tg`.`status` from `t_gaji_guru` `tg` where ((`tg`.`bulan_tahun` = convert(date_format(`t`.`tgl_absen`,'%m-%Y') using latin1)) and (`tg`.`kode_guru` = `t`.`kode_guru`) and (`tg`.`tingkat` = `t`.`tingkat`))) AS `status` from `t_absen_guru` `t`;
 
-INSERT INTO view_t_gaji_guru VALUES("01-20
+
+

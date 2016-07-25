@@ -70,8 +70,21 @@ class Rekap_absen_siswa extends MY_Controller {
                 'param' => $param
             );
             $this->load->view('webadmin/index', $data);
-        } else {
+        } else if ($submit == 'print_data') {
             $this->cetak_data($field, $array_where, $param);
+        } else {
+
+            $filename = 'Daftar Hadir' . '_' . $param['kelas'] . '_' . $param['bulan'] . $param['tahun'] . '_' . mt_rand(1, 1000) . '.xls'; //just some random filename
+            header('Content-Type: application/vnd.ms-excel');
+            header('Content-Disposition: attachment;filename="' . $filename . '"');
+            header('Cache-Control: max-age=0');
+
+            $data = array(
+                'common' => $this,
+                'list_data' => $this->siswa_model->select($field, $array_where, null, null, null)->result_array(),
+                'param' => $param
+            );
+            $this->load->view('webadmin/report/rekap_absen_siswa/cetak_absen', $data);
         }
     }
 

@@ -49,6 +49,19 @@ class Jadwal extends MY_Controller {
         );
         $this->load->view('webadmin/index', $data);
     }
+    
+     public function cetak_data() {
+        $filename = 'Jadwal' . '_' . mt_rand(1, 1000) . '.xls'; //just some random filename
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+
+        $data = array(
+            'common' => $this,
+            'list_data_kelas' => $this->listcode_model->select('*', array('head_list' => 'KLS'), null, null, null)->result()
+        );
+        $this->load->view('webadmin/master/jadwal/cetak', $data);
+    }
 
     public function process($action, $kode = null) {
         //var

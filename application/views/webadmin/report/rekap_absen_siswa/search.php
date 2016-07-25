@@ -18,7 +18,7 @@
                     ?>
                     <div class="p-20">
                         <form action="<?php echo site_url('report/rekap_absen_siswa/search') ?>" role="form" method="POST" data-parsley-validate novalidate>
-                            <div class="col-sm-9">
+                            <div class="col-sm-7">
                                 <div class="row">
                                     <div class="col-md-2">
                                         <div class="form-group">
@@ -66,13 +66,16 @@
                                     </div>                                                
                                 </div>
                             </div>                            
-                            <div class="col-sm-3">
+                            <div class="col-sm-5">
                                 <div class="button-list pull-right">
                                     <button class="btn btn-primary waves-effect waves-light w-md" type="submit" name="submit" value="search_data">
                                         <i class="icon fa fa-refresh"></i> Reload
                                     </button>
                                     <button class="btn btn-default waves-effect waves-light w-md" type="submit" name="submit" value="print_data">
-                                        <i class="icon fa fa-print"></i> Cetak
+                                        <i class="icon fa fa-print"></i> Cetak Rekap
+                                    </button>
+                                     <button class="btn btn-default waves-effect waves-light w-md" type="submit" name="submit" value="print_absen">
+                                        <i class="icon fa fa-print"></i> Cetak Absen
                                     </button>
                                 </div>
                             </div>

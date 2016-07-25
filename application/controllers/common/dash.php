@@ -16,7 +16,7 @@ if (!defined('BASEPATH'))
 
 class Dash extends MY_Controller {
 
-    var $modul = 'Beranda';
+    var $modul = 'Dashboard';
 
     public function __construct() {
         parent::__construct();
@@ -26,14 +26,23 @@ class Dash extends MY_Controller {
 
     public function index() {
         $data = array(
-            'title_page' => 'Beranda',
-            'title_content' => 'Beranda',
+            'title_page' => 'Dashboard',
+            'title_content' => 'Dashboard',
             'modul' => $this->modul,
-            'common' => $this,
-//            'list_plan' => $this->planning_model->select('*', null, '10', null, array('field' => 'id_planning', 'sort' => 'desc'))->result(),
+            'common' => $this,            
+            'list_data_kelas' => $this->listcode_model->select('*', array('head_list' => 'KLS'), null, null, null)->result(),
             'page' => 'webadmin/tile/dash'
         );
         $this->load->view('webadmin/index', $data);
+    }
+    
+    public function get_jadwal($hari, $jam, $kelas) {
+        $array_where = array(
+            'hari' => $hari,
+            'jam' => $jam,
+            'kelas' => $kelas
+        );
+        return $this->jadwal_model->select('*', $array_where, null, null, null)->row();
     }
 
     public function tour() {
@@ -42,48 +51,6 @@ class Dash extends MY_Controller {
             'page' => 'webadmin/tile/tour'
         );
         $this->load->view($data['page'], $data);
-    }
-
-    public function list_log() {
-        if (!$this->input->is_ajax_request()) {
-            exit('No direct script access allowed');
-        } else {
-            $table = 'm_log';
-
-            $primaryKey = 'id_log';
-
-            $columns = array(
-                array('db' => 'id_log', 'dt' => 'DT_RowId'),
-                array('db' => 'date', 'dt' => 'date'),
-                array('db' => 'aksi', 'dt' => 'aksi'),
-                array('db' => 'keterangan', 'dt' => 'keterangan'),
-            );
-
-            $sql_details = $this->conn;
-
-//            $param_log = array(
-//            'id_pegawai' => $this->session->userdata('id_pegawai'),
-//            'type_user' => $this->session->userdata('type_user')
-//            );
-//
-//            $where = "type_user = '" . $param_log['type_user'] . "'";
-
-            echo json_encode(
-                    Datatables_ssp::simple($_GET, $sql_details, $table, $primaryKey, $columns)
-            );
-        }
-    }
-
-    public function log() {
-        $data = array(
-            'title_page' => 'Log',
-            'title_content' => 'Log',
-            'modul' => 'Log Activitas',
-            'tile' => $this,
-            'list_log' => $this->log_model->select('*', null, null, null, array('field' => 'id_log', 'sort' => 'desc'))->result(),
-            'page' => 'webadmin/tile/log'
-        );
-        $this->load->view('webadmin/index', $data);
     }
 
     public function backup_db() {

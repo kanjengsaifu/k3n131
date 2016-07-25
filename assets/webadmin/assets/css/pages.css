@@ -1722,11 +1722,11 @@ File: Pages
    Accounts pages
 ============= */
 .account-pages {
-    /*background: url("../images/1.jpg");*/
-    background: -webkit-radial-gradient(circle, #236446, #123646, #0A1124); /* For Safari 5.1 to 6.0 */
-    background: -o-radial-gradient(circle, #236446, #123646, #0A1124); /* For Opera 11.6 to 12.0 */
-    background: -moz-radial-gradient(circle, #236446, #123646, #0A1124); /* For Fx 3.6 to 15 */
-    background: radial-gradient(circle, #236446, #123646, #0A1124);  /* Standard syntax (must be last) */
+    /*background: url("../images/agsquare.png");*/
+    background: -webkit-linear-gradient( #2577B5, #123646, #0A1124);  /*For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient( #2577B5, #123646, #0A1124);  /*For Opera 11.6 to 12.0 */
+    background: -moz-linear-gradient( #2577B5, #123646, #0A1124);  /*For Fx 3.6 to 15 */
+    background: linear-gradient(#2577B5, #123646, #0A1124);   /*Standard syntax (must be last) */
     /*background-color: #294406;*/
     position: absolute;
     height: 100%;

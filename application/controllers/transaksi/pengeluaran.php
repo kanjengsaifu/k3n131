@@ -28,9 +28,28 @@ class Pengeluaran extends MY_Controller {
             'common' => $this,
             'modul' => $this->modul,
             'title_content' => 'Data ' . $this->modul,
-            'list_data' => $this->pengeluaran_model->select('*', null, null, null, array('field' => 'id_pengeluaran', 'sort' => 'desc'))->result(),
+            'list_data' => $this->pengeluaran_model->select('*', null, null, null, array('field' => 'tgl_pengeluaran', 'sort' => 'desc'))->result(),
             'list_data_kat' => $this->listcode_model->select('*', array('head_list' => 'JL', 'substr(kode_list, 1,1) = \'D\'' => NULL), null, null, null)->result(),
             'page' => 'webadmin/transaksi/pengeluaran/list'
+        );
+        $this->load->view('webadmin/index', $data);
+    }
+    
+    public function search() {
+        $param = array('tgl'=>$this->input->post('inp_tgl_transaksi'));
+        $tgl_transaksi = date('Y-m-d', strtotime($this->input->post('inp_tgl_transaksi')));
+        $array_where = array(
+            'tgl_pengeluaran' => $tgl_transaksi
+        );
+        $data = array(
+            'title_page' => 'Semua Data',
+            'common' => $this,
+            'modul' => $this->modul,
+            'title_content' => 'Data ' . $this->modul,
+            'list_data' => $this->pengeluaran_model->select('*', $array_where, null, null, array('field' => 'tgl_pengeluaran', 'sort' => 'desc'))->result(),
+            'list_data_kat' => $this->listcode_model->select('*', array('head_list' => 'JL', 'substr(kode_list, 1,1) = \'D\'' => NULL), null, null, null)->result(),
+            'page' => 'webadmin/transaksi/pengeluaran/search',
+            'param'=>$param
         );
         $this->load->view('webadmin/index', $data);
     }
@@ -77,6 +96,22 @@ class Pengeluaran extends MY_Controller {
             $this->session->set_flashdata('message', $this->message->get_message('danger', 'failed'));
         }
         redirect('transaksi/pengeluaran');
+    }
+    
+    public function jurnal_manual() {
+        $list_data = $this->pengeluaran_model->select('*', null, null, null, null)->result();
+        foreach ($list_data as $data) {
+            echo $data->kode_pengeluaran.'<br>';
+            $arr_jurnal = array(
+                'tgl_jurnal' => $data->tgl_pengeluaran,
+                'jenis_transaksi' => $data->jenis_pengeluaran,
+                'keterangan' => $data->keterangan,
+                'kredit' => 0,
+                'debit' => $data->jumlah,
+                'kode_transaksi' => $data->kode_pengeluaran
+            );
+            $this->jurnal->add_jurnal($arr_jurnal);
+        }
     }
 
 }

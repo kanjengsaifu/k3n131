@@ -5,7 +5,7 @@
             <tr>
                 <td>
                     <div style="float: left; vertical-align: top">
-                        <h4 class="text-right" style="margin-bottom: 0; margin-top: 0"><img src="<?php echo base_url() . 'assets/webadmin/' ?>assets/images/logo.png" alt="KENBI" width="100px"></h4>
+                        <h4 class="text-right" style="margin-bottom: 0; margin-top: 0"><img src="<?php echo base_url() . 'assets/webadmin/' ?>assets/images/logo_gray.png" alt="KENBI" width="100px"></h4>
                     </div>
                     <div style="float: left">
                         <strong>Kenari Bimbel</strong><br>
@@ -16,7 +16,7 @@
                 </td>
                 <td style="text-align: right">
                     <strong>Kode Pembayaran : </strong> #<strong><?php echo $data_header->kode_pembayaran ?></strong><br>
-                    <?php echo $data_header->nama_siswa.' ('.$data_header->kelas.')' ?><br>
+                    <?php echo $data_header->nama_siswa . ' (' . $data_header->kelas . ')' ?><br>
                     <strong>Tanggal : </strong> <?php echo $this->format_date->format_date_custom($data_header->tgl_pembayaran, 'F d, Y') ?><br>
                     <strong>Status: </strong> <span class="label label-pink"><?php echo $data_header->status ?></span>                    
                 </td>
@@ -44,7 +44,7 @@
                                     <td><?php echo $no ?></td>
                                     <td>
                                         <?php
-                                        echo $detail->jenis_pembayaran == 'SPP' ? 'SPP Bulan ' . $this->format_date->format_date_custom($detail->tahun . '-' . $detail->bulan . '-01', 'F Y') : 'Pendaftaran (' . $detail->keterangan . ')';
+                                        echo $detail->jns_pemb == 'SPP' ? 'SPP Bulan ' . $this->format_date->format_date_custom($detail->tahun . '-' . $detail->bulan . '-01', 'F Y') : 'Pendaftaran (' . $detail->keterangan . ')';
                                         ?>
                                     </td>
                                     <td style="text-align: right"><?php echo number_format($detail->jumlah) ?></td>                                                   
@@ -59,13 +59,18 @@
                 </td>        
             </tr>
             <tr>
-                <td> 
-                    &nbsp;
+                <td style="vertical-align: bottom">                     
+                    Terbilang : <i><strong><?php echo $this->ntwind->convertCurrencyToWords($total) ?></strong></i>
                 </td>
                 <td style="text-align: right">
-                    <b>Total:</b> <?php echo number_format($total) ?>
-                    <br><hr>
-                    <h3>Rp. <?php echo number_format($total) ?></h3>
+                    <b>Total:</b> <?php echo number_format($total) ?><br><br>
+                    <!--                    <br><hr>
+                                        <h3>Rp. <?php echo number_format($total) ?></h3><br>-->
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: right">
+                    <br><br><br><br><br><span style="margin-right: 50px">(Admin Kenari Bimbel)</span>
                 </td>
             </tr>
         </table>

@@ -3,9 +3,12 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <div class="btn-group pull-right m-t-15">
+                <div class="button-list">
                     <a href="<?php echo site_url('transaksi/pembayaran/cetak/' . $data_header->kode_pembayaran) ?>" target="_blank">
-                        <button class="btn btn-default waves-effect waves-light">Cetak <i class="fa fa-print"></i></button>
+                        <button class="btn btn-default waves-effect waves-light pull-right">Cetak <i class="fa fa-print"></i></button>
+                    </a>
+                    <a href="<?php echo site_url('transaksi/pembayaran/add') ?>">
+                        <button class="btn btn-default waves-effect waves-light pull-right">Add <i class="fa fa-plus"></i></button>
                     </a>
                 </div>
                 <h4 class="page-title"><?php echo $modul; ?></h4>

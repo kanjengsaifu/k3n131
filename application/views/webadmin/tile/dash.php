@@ -8,51 +8,17 @@
             </div>
         </div>        
         <div class="row">
-            <div class="col-lg-3 col-sm-6">
-                <div class="widget-panel widget-style-2 bg-white">
-                    <i class="md md-done-all text-primary"></i>
-                    <h2 class="m-0 text-dark counter font-600"><?php // echo $common->count_data('plan_complete')     ?></h2>
-                    <div class="text-muted m-t-5">Plan Completed</div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="widget-panel widget-style-2 bg-white">
-                    <i class="fa fa-spinner text-pink"></i>
-                    <h2 class="m-0 text-dark counter font-600"><?php // echo $common->count_data('plan_progress')     ?></h2>
-                    <div class="text-muted m-t-5">Plan InProgress</div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="widget-panel widget-style-2 bg-white">
-                    <i class="md md-folder-shared text-info"></i>
-                    <h2 class="m-0 text-dark counter font-600"><?php // echo $common->count_data('plan_open')     ?></h2>
-                    <div class="text-muted m-t-5">Plan Open</div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="widget-panel widget-style-2 bg-white">
-                    <i class="fa fa-repeat text-custom"></i>
-                    <h2 class="m-0 text-dark counter font-600"><?php // echo $common->count_data('plan_pending')     ?></h2>
-                    <div class="text-muted m-t-5">Plan Pending</div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-sm-12">
-                <?php
-                if ($this->session->flashdata('message') != ''):echo $this->session->flashdata('message');
-                endif;
-                ?>
                 <div class="card-box table-responsive font-13">
                     <h4 class="m-t-0 header-title"><b>Jadwal Hari Ini</b></h4>
                     <table class="table table-striped table-bordered dt-responsive nowrap focus-on" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <th style="width: 5%" rowspan="2">Hari</th>
+                                <th rowspan="2">Hari</th>
                                 <th rowspan="2">Jam</th>
                                 <th colspan="<?php echo count($list_data_kelas) ?>">Kelas</th>
                             </tr>
-                            <tr>
+                            <tr style="width: 5%">
                                 <?php
                                 foreach ($list_data_kelas as $kelas) {
                                     echo '<th>' . $kelas->nama_list . '</th>';
@@ -77,11 +43,9 @@
                                             <?php
                                             foreach ($list_data_kelas as $kelas) {
                                                 $mapel = $common->get_jadwal($day, $hour, $kelas->nama_list);
-                                                echo '<td style="width:7%; text-align:center">';
+                                                echo '<td style="text-align:center">';
                                                 if ($mapel != null) {
-                                                    echo '<a data-toggle="modal" data-target="#modal-edit-' . $mapel->id_jadwal . '" title="' . $mapel->nama_mapel . '">'
-                                                    . $mapel->mapel
-                                                    . '</a>';
+                                                    echo '<a data-toggle="modal" data-target="#modal-edit-' . $mapel->id_jadwal . '" title="' . $mapel->nama_mapel . '">'. $mapel->mapel. '</a>';
                                                 } else {
                                                     '-';
                                                 }
@@ -94,6 +58,44 @@
                                 }
                             }
                             ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card-box table-responsive font-13">
+                    <h4 class="m-t-0 header-title"><b>Jumlah siswa</b></h4>
+                    <table class="table table-striped table-bordered dt-responsive nowrap focus-on" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Jml Siswa Total</th>
+                                <th colspan="<?php echo count($list_data_kelas) ?>">Kelas</th>
+                            </tr>
+                            <tr style="width: 5%">
+                                <?php
+                                foreach ($list_data_kelas as $kelas) {
+                                    echo '<th>' . $kelas->nama_list . '</th>';
+                                }
+                                ?>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <?php
+                                //total
+                                $jml_tot = $common->get_jml_siswa();
+                                echo '<td>' . $jml_tot->jml . '</td>';
+
+                                //per kelas
+                                foreach ($list_data_kelas as $kelas) {
+                                    $jml = $common->get_jml_siswa($kelas->nama_list);
+                                    echo '<td>' . $jml->jml . '</td>';
+                                }
+                                ?>
+                            </tr>
+
                         </tbody>
                     </table>
                 </div>

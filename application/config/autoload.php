@@ -55,7 +55,7 @@ $autoload['packages'] = array();
   |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
  */
 
-$autoload['libraries'] = array('database', 'session', 'format_date', 'array_custom', 'message', 'form_validation','datatables_ssp');
+$autoload['libraries'] = array('database', 'session', 'format_date', 'array_custom', 'message', 'form_validation','datatables_ssp', 'ntwind');
 
 
 /*

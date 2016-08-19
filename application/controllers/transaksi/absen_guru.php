@@ -28,10 +28,29 @@ class Absen_guru extends MY_Controller {
             'common' => $this,
             'modul' => $this->modul,
             'title_content' => 'Data ' . $this->modul,
-            'list_data' => $this->absen_guru_model->select('*', null, null, null, array('field' => 'tgl_absen', 'sort' => 'desc'))->result(),
             'list_data_guru' => $this->guru_model->select('*', null, null, null, array('field' => 'nama_guru', 'sort' => 'asc'))->result(),
             'list_data_tingkat' => $this->listcode_model->select('*', array('head_list' => 'TK'), null, null, null)->result(),
             'page' => 'webadmin/transaksi/absen_guru/list'
+        );
+        $this->load->view('webadmin/index', $data);
+    }
+    
+    public function search() {
+        $param = array('tgl'=>$this->input->post('inp_tgl_absen'));
+        $tgl_absen = date('Y-m-d', strtotime($this->input->post('inp_tgl_absen')));
+        $array_where = array(
+            'tgl_absen' => $tgl_absen
+        );
+        $data = array(
+            'title_page' => 'Semua Data',
+            'common' => $this,
+            'modul' => $this->modul,
+            'title_content' => 'Data ' . $this->modul,
+            'list_data' => $this->absen_guru_model->select('*', $array_where, null, null, array('field' => 'nama_guru', 'sort' => 'desc'))->result(),
+            'list_data_guru' => $this->guru_model->select('*', null, null, null, array('field' => 'nama_guru', 'sort' => 'asc'))->result(),
+            'list_data_tingkat' => $this->listcode_model->select('*', array('head_list' => 'TK'), null, null, null)->result(),
+            'page' => 'webadmin/transaksi/absen_guru/search',
+            'param'=>$param
         );
         $this->load->view('webadmin/index', $data);
     }

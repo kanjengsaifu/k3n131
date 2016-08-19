@@ -18,10 +18,6 @@ class Pembayaran extends MY_Controller {
     }
 
     public function index() {
-        $this->list_data();
-    }
-
-    public function list_data() {
         $data = array(
             'title_page' => 'Semua Data',
             'common' => $this,
@@ -33,10 +29,29 @@ class Pembayaran extends MY_Controller {
         $this->load->view('webadmin/index', $data);
     }
 
+    public function search() {
+        $param = array('tgl'=>$this->input->post('inp_tgl_transaksi'));
+        $tgl_transaksi = date('Y-m-d', strtotime($this->input->post('inp_tgl_transaksi')));
+        $array_where = array(
+            'tgl_pembayaran' => $tgl_transaksi,
+            'status' => 'LUNAS'
+        );
+        $data = array(
+            'title_page' => 'Semua Data',
+            'common' => $this,
+            'modul' => $this->modul,
+            'title_content' => 'Data ' . $this->modul,
+            'list_data' => $this->pembayaran_header_model->select('*', $array_where, null, null, array('field' => 'tgl_pembayaran', 'sort' => 'desc'))->result(),
+            'page' => 'webadmin/transaksi/pembayaran/search',
+            'param'=>$param
+        );
+        $this->load->view('webadmin/index', $data);
+    }
+
     public function add($kode_transaksi = null) {
         if ($kode_transaksi == null) {
-            $cnt = $this->counter->generate_id_with_zero('PB'.date('ym'), 4);
-            $kode_transaksi = 'PB'.date('ym') . $cnt;
+            $cnt = $this->counter->generate_id_with_zero('PB' . date('ym'), 4);
+            $kode_transaksi = 'PB' . date('ym') . $cnt;
             $data['kode_pembayaran'] = $kode_transaksi;
             $data['tgl_pembayaran'] = date('Y-m-d');
             $this->pembayaran_header_model->add($data);
@@ -48,7 +63,7 @@ class Pembayaran extends MY_Controller {
                 'data_header' => $this->pembayaran_header_model->select('*', array('kode_pembayaran' => $kode_transaksi), null, null, null)->row(),
                 'list_data_det' => $this->pembayaran_det_model->select('*', array('kode_pembayaran' => $kode_transaksi), null, null, null)->result(),
                 'list_data_siswa' => $this->siswa_model->select('*', null, null, null, null)->result(),
-                'list_data_kat' => $this->listcode_model->select('*', array('head_list'=>'JL', 'substr(kode_list, 1,1) = \'K\'' => NULL), null, null, null)->result(),
+                'list_data_kat' => $this->listcode_model->select('*', array('head_list' => 'JL', 'substr(kode_list, 1,1) = \'K\'' => NULL), null, null, null)->result(),
                 'page' => 'webadmin/transaksi/pembayaran/add',
                 'modul' => $this->modul,
             );
@@ -67,7 +82,7 @@ class Pembayaran extends MY_Controller {
         );
         $this->load->view('webadmin/index', $data);
     }
-    
+
     public function cetak($kode_transaksi = null) {
         $data = array(
             'data_header' => $this->pembayaran_header_model->select('*', array('kode_pembayaran' => $kode_transaksi), null, null, null)->row(),
@@ -111,8 +126,9 @@ class Pembayaran extends MY_Controller {
             }
             redirect('transaksi/pembayaran/add/' . $kode);
         }
-    }    
-    public function delete($kode_transaksi= null) {
+    }
+
+    public function delete($kode_transaksi = null) {
         $res = $this->pembayaran_header_model->delete(array('kode_pembayaran' => $kode_transaksi));
         $this->log->add_log('Hapus Data ' . $this->modul, $kode_transaksi);
         $this->jurnal->delete_jurnal($kode_transaksi);
@@ -134,15 +150,15 @@ class Pembayaran extends MY_Controller {
         }
         redirect('transaksi/pembayaran/add/' . $kode);
     }
-    
+
     public function add_jurnal($kode) {
         $data_header = $this->pembayaran_header_model->select('*', array('kode_pembayaran' => $kode), null, null, null)->row();
-        $list_detil = $this->pembayaran_det_model->select('*', array('kode_pembayaran'=>$kode), null, null, null)->result();
+        $list_detil = $this->pembayaran_det_model->select('*', array('kode_pembayaran' => $kode), null, null, null)->result();
         foreach ($list_detil as $detil) {
             $arr_jurnal = array(
                 'tgl_jurnal' => $data_header->tgl_pembayaran,
                 'jenis_transaksi' => $detil->jenis_pembayaran,
-                'keterangan' => $detil->jenis_pembayaran == 'K01' ? 'Pendaftaran ('.$data_header->nama_siswa.')':'SPP '.$data_header->nama_siswa.' ('.$detil->bulan.'/'.$detil->tahun.')',
+                'keterangan' => $detil->jenis_pembayaran == 'K01' ? 'Pendaftaran (' . $data_header->nama_siswa . ')' : 'SPP ' . $data_header->nama_siswa . ' (' . $detil->bulan . '/' . $detil->tahun . ')',
                 'kredit' => $detil->jumlah,
                 'debit' => 0,
                 'kode_transaksi' => $detil->kode_pembayaran

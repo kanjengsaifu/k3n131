@@ -1,48 +1,54 @@
 <div class="wrapper">
     <div class="container">
-        <?php $this->load->view('webadmin/utility/listcode/breadcrumbs'); ?>
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 class="page-title"><?php echo $title_page; ?></h4>
+                <?php $this->load->view('webadmin/utility/role/breadcrumbs'); ?>
+            </div>
+        </div>
         <!-- Page-Title -->
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <div class="card-box table-responsive">
                     <h4 class="m-t-0 header-title"><?php echo $modul ?></h4>
-                    <form action="<?php echo site_url('utility/listcode/process/edit/' . $data->id_list_code); ?>" method="post" data-parsley-validate novalidate>
-                        <input type="hidden" hidden="hidden" value="<?php echo $data->id_list_code ?>" name="inpId">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="field-2" class="control-label">Head List</label>
-                                    <select class="form-control" name="inpHeadList" required>
-                                        <option value="">-- head list --</option>
+                    <form action="<?php echo site_url('utility/role/process/edit/' . $data->id_role); ?>" method="POST" enctype="multipart/form-data" data-parsley-validate novalidate>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="field-1" class="control-label">Nama Role</label>
+                                        <input type="text" name="inpNama" class="form-control" required id="field-1" placeholder="Name.." value="<?php echo $data->nama_role ?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="field-1" class="control-label">Kode Role</label>
+                                        <input type="text" name="inpKode" class="form-control" required id="field-1" placeholder="Kode.." value="<?php echo $data->kode_role ?>">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="field-1" class="control-label">Hak Akses</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
                                         <?php
-                                        foreach ($list_data_head as $data_head) {
-                                            echo '<option value="' . $data_head->kode_list . '" ' . set_select('inpHeadList', $data_head->nama_list, $data_head->kode_list == $data->head_list) . '>' . $data_head->nama_list . '</option>';
-                                        }
+                                        $this->load->view('webadmin/utility/role/view_list_modul');
+                                        view_list_modul(explode(',', $data->hak_akses), $list_data_kategori, $list_data_modul)
                                         ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="field-2" class="control-label">Kode</label>
-                                    <input type="text" name="inpKodeList" readonly="" value="<?php echo $data->kode_list ?>" class="form-control" id="field-2" placeholder="kode list..">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="field-1" class="control-label">Nama</label>
-                                    <input type="text" name="inpNamaList" class="form-control" value="<?php echo $data->nama_list ?>" required id="field-1" placeholder="nama list..">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group text-right m-b-0">
-                            <a href="<?php echo site_url('listcode') ?>"><button type="button" class="btn btn-danger waves-effect"><?php echo $this->array_custom->get_keterangan('button', 'cancel') ?></button></a>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal"><?php echo $this->array_custom->get_keterangan('button', 'cancel') ?></button>
                             <button type="submit" class="btn btn-default waves-effect waves-light"><?php echo $this->array_custom->get_keterangan('button', 'save') ?></button>
                         </div>
-
                     </form>
                 </div>
             </div>

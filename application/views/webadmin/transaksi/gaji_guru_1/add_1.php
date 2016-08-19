@@ -36,14 +36,37 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label class="control-label">Tanggal Awal</label>
-                                            <input type="text" name="inp_tgl_awal" class="form-control input-sm datepicker" value="<?php echo $param['tgl_awal'] != null ? $param['tgl_awal'] : date('d-m-Y') ?>" placeholder="tanggal transaksi.." required="">
+                                            <label class="control-label">Bulan / Tahun</label>
+                                            <?php
+                                            $arr_m = $this->format_date->list_month();
+                                            ?>
+                                            <select class="form-control input-sm select2" name="inp_bulan" required="">
+                                                <option value="">Pilih Bulan</option>  
+                                                <?php
+                                                for ($i = 0; $i < 12; $i++) {
+                                                    $arr_i = $i + 1;
+                                                    if ($i < 10) {
+                                                        $lbl_i = '0' . $arr_i;
+                                                    } else {
+                                                        $lbl_i = $arr_i;
+                                                    }
+                                                    echo '<option value="' . $lbl_i . '" ' . set_select('inp_bulan', $lbl_i, $lbl_i == $param['bulan']) . '>' . $arr_m[$i] . '</option>';
+                                                }
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label class="control-label">Tanggal Akhir</label>
-                                            <input type="text" name="inp_tgl_akhir" class="form-control input-sm datepicker" value="<?php echo $param['tgl_akhir'] != null ? $param['tgl_akhir'] : date('d-m-Y') ?>" placeholder="tanggal transaksi.." required="">
+                                            <label class="control-label">Bulan / Tahun</label>
+                                            <select class="form-control input-sm select2" name="inp_tahun" required>
+                                                <option value="">Pilih Tahun</option>  
+                                                <?php
+                                                for ($i = $common->setting['tahun_awal']; $i <= date('Y'); $i++) {
+                                                    echo '<option value="' . $i . '" ' . set_select('inp_tahun', $i, $i == $param['tahun']) . '>' . $i . '</option>';
+                                                }
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -155,12 +178,12 @@
                                     $total_all += $total;
                                 }
                                 ?>
-                                <tr>
-                                    <td colspan="9">Total Pembayaran Gaji Guru</td>
-                                    <td><?php echo $total_all ?></td>
-                                    <td></td>
-                                </tr>
-                                <?php
+                                    <tr>
+                                        <td colspan="9">Total Pembayaran Gaji Guru</td>
+                                        <td><?php echo $total_all?></td>
+                                        <td></td>
+                                    </tr>
+                                    <?php
                             } else {
                                 echo '<tr><td colspan="11">No data available in table</td></tr>';
                             }

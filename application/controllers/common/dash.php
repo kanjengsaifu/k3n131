@@ -29,13 +29,13 @@ class Dash extends MY_Controller {
             'title_page' => 'Dashboard',
             'title_content' => 'Dashboard',
             'modul' => $this->modul,
-            'common' => $this,            
+            'common' => $this,
             'list_data_kelas' => $this->listcode_model->select('*', array('head_list' => 'KLS'), null, null, null)->result(),
             'page' => 'webadmin/tile/dash'
         );
         $this->load->view('webadmin/index', $data);
     }
-    
+
     public function get_jadwal($hari, $jam, $kelas) {
         $array_where = array(
             'hari' => $hari,
@@ -43,6 +43,17 @@ class Dash extends MY_Controller {
             'kelas' => $kelas
         );
         return $this->jadwal_model->select('*', $array_where, null, null, null)->row();
+    }
+
+    public function get_jml_siswa($kelas = null) {
+        if ($kelas != null) {
+            $array_where = array('kelas' => $kelas);
+            $field = 'kelas, count(id_siswa) as jml';
+        } else {
+            $array_where = null;
+            $field = 'count(id_siswa) as jml';
+        }
+        return $this->siswa_model->select($field, $array_where, null, null, null)->row();
     }
 
     public function tour() {

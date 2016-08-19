@@ -38,11 +38,30 @@ class Role extends MY_Controller {
     }
 
     public function add() {
-       
+       $data = array(
+            'title_page' => 'Semua Data',
+            'common' => $this,
+            'modul' => $this->modul,
+            'title_content' => 'Tambah Data Role',
+            'list_data_kategori' => $this->listcode_model->select('*', array('head_list' => 'MD'), null, null, null)->result(),
+            'list_data_modul' => $this->modul_model->select('*', null, null, null, null)->result(),
+            'page' => 'webadmin/utility/role/add'
+        );
+        $this->load->view('webadmin/index', $data);
     }
 
     public function edit($id = null) {
-       
+       $data = array(
+            'title_page' => 'Semua Data',
+            'common' => $this,
+            'modul' => $this->modul,
+            'title_content' => 'Edit Data Role',
+            'list_data_kategori' => $this->listcode_model->select('*', array('head_list' => 'MD'), null, null, null)->result(),
+            'list_data_modul' => $this->modul_model->select('*', null, null, null, null)->result(),
+            'data' => $this->role_model->select('*', array('id_role'=>$id), null, null, null)->row(),
+            'page' => 'webadmin/utility/role/edit'
+        );
+        $this->load->view('webadmin/index', $data);
     }
 
     public function process($action, $id = null) {

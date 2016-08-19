@@ -31,7 +31,10 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <?php view_list_modul(null, $list_data_kategori, $list_data_modul) ?>
+                                <?php
+                                $this->load->view('webadmin/utility/role/view_list_modul');
+                                view_list_modul(null, $list_data_kategori, $list_data_modul)
+                                ?>
 
                             </div>
                         </div>

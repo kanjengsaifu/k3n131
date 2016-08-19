@@ -19,19 +19,47 @@ class Siswa extends MY_Controller {
     }
 
     public function index() {
-        $this->list_data();
-    }
-
-    public function list_data() {
         $data = array(
             'title_page' => 'Semua Data',
             'common' => $this,
             'modul' => $this->modul,
             'title_content' => 'Data ' . $this->modul,
-            'list_data' => $this->siswa_model->select('*', null, null, null, array('field' => 'id_siswa', 'sort' => 'desc'))->result(),
             'list_data_jk' => $this->listcode_model->select('*', array('head_list' => 'JK'), null, null, null)->result(),
-            'list_data_kelas' => $this->listcode_model->select('*', array('head_list' => 'KLS'), null, null, null)->result(),
+            'list_data_kelas' => $this->listcode_model->select('*', array('head_list' => 'KLS'), null, null, array('field' => 'id_list_code', 'sort' => 'asc'))->result(),
             'page' => 'webadmin/master/siswa/list'
+        );
+        $this->load->view('webadmin/index', $data);
+    }
+
+    public function search() {
+
+        $array_where = array();
+
+        $kelas = $this->input->post('inp_kelas');
+        if ($kelas != 'ALL') {
+            $array_where = array_merge($array_where, array('kelas' => $kelas));
+        }
+
+        $nama = $this->input->post('inp_nama_siswa');
+        if ($nama != '*') {
+            $array_where = array_merge($array_where, array('nama_siswa LIKE \'%' . $nama . '%\'' => null));
+        }
+
+        $param = array(
+            'kelas' => $kelas,
+            'nama' => $nama
+        );
+
+        $data = array(
+            'title_page' => 'Semua Data',
+            'common' => $this,
+            'modul' => $this->modul,
+            'title_content' => 'Data ' . $this->modul,
+            'list_data' => $this->siswa_model->select('*', $array_where, null, null, array('field' => 'nama_siswa', 'sort' => 'asc'))->result(),
+            'list_data_jk' => $this->listcode_model->select('*', array('head_list' => 'JK'), null, null, null)->result(),
+            'list_data_kelas' => $this->listcode_model->select('*', array('head_list' => 'KLS'), null, null, array('field' => 'id_list_code', 'sort' => 'asc'))->result(),
+            'page' => 'webadmin/master/siswa/search',
+            'param' => $param
         );
         $this->load->view('webadmin/index', $data);
     }
@@ -41,19 +69,9 @@ class Siswa extends MY_Controller {
                 . ',(select h1.tgl_pembayaran from t_pembayaran_header h1 WHERE h1.kode_pembayaran = t_pembayaran_detail.kode_pembayaran) as tgl_pembayaran';
         $array_where = array(
             'jenis_pembayaran' => 'K02',
-            'kode_pembayaran in (SELECT h.kode_pembayaran FROM t_pembayaran_header h WHERE h.kode_siswa = \''.$kode_siswa.'\')' => null
+            'kode_pembayaran in (SELECT h.kode_pembayaran FROM t_pembayaran_header h WHERE h.kode_siswa = \'' . $kode_siswa . '\')' => null
         );
-        $list_hist_spp = $this->pembayaran_det_model->select($field, $array_where, null, null, array('field'=>'tgl_pembayaran', 'sort'=>'desc'))->result();
-
-//        SELECT
-//	*,
-//(select h1.tgl_pembayaran from t_pembayaran_header h1 WHERE h1.kode_pembayaran = d.kode_pembayaran) as tgl_pembayaran
-//FROM
-//	t_pembayaran_detail d
-//WHERE
-//	d.kode_pembayaran IN (
-//		SELECT h.kode_pembayaran FROM t_pembayaran_header h WHERE h.kode_siswa = '1410024'
-//	)
+        $list_hist_spp = $this->pembayaran_det_model->select($field, $array_where, null, null, array('field' => 'tgl_pembayaran', 'sort' => 'desc'))->result();
 
         $data = array(
             'title_page' => 'Lihat Data',
@@ -89,8 +107,8 @@ class Siswa extends MY_Controller {
         $submit = $this->input->post('submit');
 
         if ($action == 'add') {
-            $cnt = $this->counter->generate_id_with_zero(date('Y'), 5);
-            $data['kode_siswa'] = date('Y') . $cnt;
+            $cnt = $this->counter->generate_id_with_zero(date('ym'), 3);
+            $data['kode_siswa'] = date('ym') . $cnt;
             $res = $this->siswa_model->add($data);
             $this->log->add_log('Tambah Data ' . $this->modul, $data['nama_depan']);
             if ($res) {

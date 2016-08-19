@@ -17,7 +17,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="" class="control-label">Jenis Kelamin</label>
-                                <select class="form-control input-sm select2" name="inp_jenis_kelamin" required>
+                                <select class="form-control input-sm select2" name="inp_jenis_kelamin" >
                                     <option value="">Select..</option>
                                     <?php
                                     foreach ($list_data_jk as $jk) {
@@ -30,7 +30,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="" class="control-label">Tempat Lahir</label>
-                                <input type="text" name="inp_tempat_lahir" class="form-control input-sm" required  placeholder="tempat lahir..">
+                                <input type="text" name="inp_tempat_lahir" class="form-control input-sm"   placeholder="tempat lahir..">
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -42,7 +42,7 @@
                         <div class="col-md-1">
                             <div class="form-group">
                                 <label for="" class="control-label">Anak Ke-</label>
-                                <input type="text" name="inp_anak_ke" class="form-control input-sm" required  placeholder="anak ke..">
+                                <input type="text" name="inp_anak_ke" class="form-control input-sm"   placeholder="anak ke..">
                             </div>
                         </div>
                     </div>
@@ -50,13 +50,12 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="" class="control-label">Asal Sekolah</label>
-                                <input type="text" name="inp_asal_sekolah" class="form-control input-sm" required  placeholder="asal sekolah..">
+                                <input type="text" name="inp_asal_sekolah" class="form-control input-sm"   placeholder="asal sekolah..">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="" class="control-label">Kelas</label>
-                                <!--<input type="text" name="inp_kelas" class="form-control input-sm" required  placeholder="kelas..">-->
                                  <select class="form-control input-sm select2" name="inp_kelas" required>
                                     <option value="">Select..</option>
                                     <?php
@@ -70,13 +69,13 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="" class="control-label">Telp. Siswa</label>
-                                <input type="text" name="inp_telp_siswa" class="form-control input-sm" required  placeholder="telp. siswa..">
+                                <input type="text" name="inp_telp_siswa" class="form-control input-sm"   placeholder="telp. siswa..">
                             </div>
                         </div>
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label for="" class="control-label">Alamat</label>
-                                <input type="text" name="inp_alamat" class="form-control input-sm" required  placeholder="alamat..">
+                                <input type="text" name="inp_alamat" class="form-control input-sm"   placeholder="alamat..">
                             </div>
                         </div>
                     </div>
@@ -84,25 +83,25 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="" class="control-label">Nama Ayah</label>
-                                <input type="text" name="inp_nama_ayah" class="form-control input-sm" required  placeholder="nama ayah..">
+                                <input type="text" name="inp_nama_ayah" class="form-control input-sm"   placeholder="nama ayah..">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="" class="control-label">Pekerjaan Ayah</label>
-                                <input type="text" name="inp_pkj_ayah" class="form-control input-sm" required  placeholder="pekerjaan ayah..">
+                                <input type="text" name="inp_pkj_ayah" class="form-control input-sm"   placeholder="pekerjaan ayah..">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="" class="control-label">Nama Ibu</label>
-                                <input type="text" name="inp_nama_ibu" class="form-control input-sm" required  placeholder="nama ibu..">
+                                <input type="text" name="inp_nama_ibu" class="form-control input-sm"   placeholder="nama ibu..">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="" class="control-label">Pekerjaan Ibu</label>
-                                <input type="text" name="inp_pkj_ibu" class="form-control input-sm" required  placeholder="pekerjaan ibu..">
+                                <input type="text" name="inp_pkj_ibu" class="form-control input-sm"   placeholder="pekerjaan ibu..">
                             </div>
                         </div>
                     </div>
@@ -110,13 +109,13 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="" class="control-label">Telp. Ortu 1</label>
-                                <input type="text" name="inp_telp_ortu" class="form-control input-sm" required  placeholder="telp orangtua..">
+                                <input type="text" name="inp_telp_ortu" class="form-control input-sm"   placeholder="telp orangtua..">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="" class="control-label">Telp. Ortu 2</label>
-                                <input type="text" name="inp_telp_ortu_2" class="form-control input-sm" required  placeholder="telp orangtua 2..">
+                                <input type="text" name="inp_telp_ortu_2" class="form-control input-sm"   placeholder="telp orangtua 2..">
                             </div>
                         </div>
                     </div>

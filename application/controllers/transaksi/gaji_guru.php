@@ -28,116 +28,124 @@ class Gaji_guru extends MY_Controller {
             'modul' => $this->modul,
             'title_content' => 'Data ' . $this->modul,
             'list_data' => $this->gaji_guru_model->select('*', null, null, null, array('field' => 'id_gaji_guru', 'sort' => 'desc'))->result(),
+            'list_data_tingkat' => $this->listcode_model->select('*', array('head_list' => 'TK'), null, null, null)->result(),
             'page' => 'webadmin/transaksi/gaji_guru/list'
         );
         $this->load->view('webadmin/index', $data);
     }
 
-    public function add() {
+    public function view($id = NULL) {
+        $data_gaji = $this->gaji_guru_model->select('*', array('id_gaji_guru' => $id), null, null, null)->row();
+        $array_where = array(
+            'tgl_absen >= \'' . $data_gaji->tgl_awal . '\'' => null,
+            'tgl_absen <= \'' . $data_gaji->tgl_akhir . '\'' => null,
+            'tingkat' => $data_gaji->tingkat
+        );
 
-        $submit = $this->input->post('submit');
-        $array_where = array();
-        $param = array();
-        $tingkat = $this->input->post('inp_tingkat');
-        if ($tingkat != null) {
-            $array_where = array_merge($array_where, array('tingkat' => $tingkat));
-            $param = array_merge($param, array('tingkat' => $tingkat));
-        }
+        $field = 'kode_guru '
+                . ',sum(jumlah_jam) as jml_jam';
 
-//        $bulan = $this->input->post('inp_bulan');
-//        $tahun = $this->input->post('inp_tahun');
-//        if ($bulan != null && $tahun != null) {
-//            $array_where = array_merge($array_where, array('bulan_tahun' => $bulan . '-' . $tahun));
-//            $param = array_merge($param, array('bulan' => $bulan, 'tahun' => $tahun));
-//        }
-        
-        
-
-        if ($submit == 'print_data') {
-//            echo 'print';
-            $filename = 'Rekap Gaji Guru' . '_' . $param['tingkat'] . '_' . $param['bulan'] . $param['tahun'] . '_' . mt_rand(1, 1000) . '.xls'; //just some random filename
-            header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="' . $filename . '"');
-            header('Cache-Control: max-age=0');
-
-            $data = array(
-                'list_data' => $param == null ? null : $this->gaji_guru_model->select_view('*', $array_where, null, null, array('field' => 'nama_guru', 'sort' => 'asc'))->result(),
-                'param' => $param
-            );
-            $this->load->view('webadmin/transaksi/gaji_guru/cetak', $data);
-        } elseif ($submit == 'print_data_detil') {
-//            echo 'print_detil';
-//            $filename = 'Detil Gaji Guru' . '_' . $param['bulan'] . $param['tahun'] . '_' . $param['tingkat'] . '_' . mt_rand(1, 1000) . '.xls'; //just some random filename
-//            header('Content-Type: application/vnd.ms-excel');
-//            header('Content-Disposition: attachment;filename="' . $filename . '"');
-//            header('Cache-Control: max-age=0');
-
-            $data = array(
-                'list_data_absen_guru' => $this->absen_guru_model->select('*', array('date_format(tgl_absen, \'%m-%Y\') = \'' . $param['bulan'] . '-' . $param['tahun'] . '\'' => null, 'tingkat' => $param['tingkat']), null, null, array('field' => 'tgl_absen', 'sort' => 'asc'))->result(),
-                'list_data' => $param == null ? null : $this->gaji_guru_model->select_view('*', $array_where, null, null, array('field' => 'nama_guru', 'sort' => 'asc'))->result(),
-                'param' => $param
-            );
-            $this->load->view('webadmin/transaksi/gaji_guru/cetak_detil', $data);
-        } else {
-            $data = array(
-                'title_page' => 'Tambah Data',
-                'common' => $this,
-                'modul' => $this->modul,
-                'title_content' => 'Data ' . $this->modul,
-                'list_data_tingkat' => $this->listcode_model->select('*', array('head_list' => 'TK'), null, null, null)->result(),
-                'list_data' => $param == null ? null : $this->gaji_guru_model->select_view('*', $array_where, null, null, array('field' => 'nama_guru', 'sort' => 'asc'))->result(),
-                'param' => $param,
-                'page' => 'webadmin/transaksi/gaji_guru/add'
-            );
-
-            $this->load->view('webadmin/index', $data);
-        }
+        $data = array(
+            'title_page' => 'Semua Data',
+            'common' => $this,
+            'modul' => $this->modul,
+            'title_content' => 'Lihat Data ' . $this->modul,
+            'data' => $data_gaji,
+            'list_data_absen' => $this->absen_guru_model->select($field, $array_where, null, null, array('field' => 'kode_guru', 'sort' => 'asc'), 'kode_guru')->result(),
+            'page' => 'webadmin/transaksi/gaji_guru/view'
+        );
+        $this->load->view('webadmin/index', $data);
     }
 
-    public function process_add($bulan_tahun, $tingkat, $kode_guru) {
-        //var
+    public function cetak($id = null) {
+
+        $data_gaji = $this->gaji_guru_model->select('*', array('id_gaji_guru' => $id), null, null, null)->row();
         $array_where = array(
-            'bulan_tahun' => $bulan_tahun,
-            'tingkat' => $tingkat,
-            'kode_guru' => $kode_guru
+            'tgl_absen >= \'' . $data_gaji->tgl_awal . '\'' => null,
+            'tgl_absen <= \'' . $data_gaji->tgl_akhir . '\'' => null,
+            'tingkat' => $data_gaji->tingkat
         );
-        $gaji = $this->gaji_guru_model->select_view('*', $array_where, null, null, array('field' => 'nama_guru', 'sort' => 'asc'))->row();
 
-        $cnt = $this->counter->generate_id_with_zero('HG' . date('ym'), 3);
-        $data['kode_transaksi'] = 'HG' . date('ym') . $cnt;
-        $data['kode_guru'] = $kode_guru;
-        $data['bulan_tahun'] = $bulan_tahun;
-        $data['tingkat'] = $tingkat;
-        $data['tgl_gaji_guru'] = date('Y-m-d');
-        $data['jml_absen'] = $gaji->jml_absen;
-        $data['honor_mengajar'] = $gaji->honor_mengajar;
-        $data['jml_materi'] = $gaji->jml_materi;
-        $data['honor_materi'] = $gaji->honor_materi;
-        $data['jml_soal'] = $gaji->jml_soal;
-        $data['honor_soal'] = $gaji->honor_soal;
-        $data['status'] = 1;
+        $filename = 'Rekap Gaji Guru' . '_' . $data_gaji->tingkat . '' . mt_rand(1, 1000) . '.xls'; //just some random filename
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
 
-        $total = ($data['jml_absen'] * $data['honor_mengajar']) + ($data['jml_materi'] * $data['honor_materi']) + ($data['jml_soal'] * $data['honor_soal']);
+        $field = 'kode_guru '
+                . ',sum(jumlah_jam) as jml_jam';
 
-        $res = $this->gaji_guru_model->add($data);
-        $this->log->add_log('Tambah Data ' . $this->modul, $data['kode_transaksi']);
-
-        $arr_jurnal = array(
-            'tgl_jurnal' => $data['tgl_gaji_guru'],
-            'jenis_transaksi' => 'D06',
-            'keterangan' => 'Honor Guru - ' . $gaji->nama_guru . ' (' . $bulan_tahun . ')',
-            'kredit' => 0,
-            'debit' => $total,
-            'kode_transaksi' => $data['kode_transaksi']
+        $data = array(
+            'common' => $this,
+            'data' => $data_gaji,
+            'list_data_absen' => $this->absen_guru_model->select($field, $array_where, null, null, array('field' => 'kode_guru', 'sort' => 'asc'), 'kode_guru')->result(),
         );
-        $this->jurnal->add_jurnal($arr_jurnal);
+        $this->load->view('webadmin/transaksi/gaji_guru/cetak', $data);
+    }
 
-        if ($res) {
-            $this->session->set_flashdata('message', $this->message->get_message('success', 'add-success'));
-        } else {
-            $this->session->set_flashdata('message', $this->message->get_message('danger', 'failed'));
+    public function cetak_detil($id = null) {
+        $data_gaji = $this->gaji_guru_model->select('*', array('id_gaji_guru' => $id), null, null, null)->row();
+        $array_where = array(
+            'tgl_absen >= \'' . $data_gaji->tgl_awal . '\'' => null,
+            'tgl_absen <= \'' . $data_gaji->tgl_akhir . '\'' => null,
+            'tingkat' => $data_gaji->tingkat
+        );
+
+        $filename = 'Rekap Gaji Guru (Detil)' . '_' . $data_gaji->tingkat . '' . mt_rand(1, 1000) . '.xls'; //just some random filename
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+
+        $field = 'kode_guru '
+                . ',sum(jumlah_jam) as jml_jam';
+
+        $data = array(
+            'common' => $this,
+            'param' => $array_where,
+            'data' => $data_gaji,
+            'list_data_absen' => $this->absen_guru_model->select($field, $array_where, null, null, array('field' => 'kode_guru', 'sort' => 'asc'), 'kode_guru')->result(),
+        );
+        $this->load->view('webadmin/transaksi/gaji_guru/cetak_detil', $data);
+    }
+
+    public function process($action, $id = null) {
+
+        $data['tgl_awal'] = date('Y-m-d', strtotime($this->input->post('inp_tgl_awal')));
+        $data['tgl_akhir'] = date('Y-m-d', strtotime($this->input->post('inp_tgl_akhir')));
+        $data['tingkat'] = $this->input->post('inp_tingkat');
+
+        if ($action == 'add') {
+            $cnt = $this->counter->generate_id_with_zero('HG' . date('ym'), 3);
+            $data['kode_transaksi'] = 'HG' . date('ym') . $cnt;
+            $ctn = $this->gaji_guru_model->add($data);
+            $this->log->add_log('Tambah Data ' . $this->modul, $data['tgl_awal'] . ' - ' . $data['tgl_akhir'] . ' - ' . $data['tgl_tingkat']);
+            if ($ctn) {
+                $this->session->set_flashdata('message', $this->message->get_message('success', 'add-success'));
+            } else {
+                $this->session->set_flashdata('message', $this->message->get_message('danger', 'failed'));
+            }
+        } elseif ($action == 'update_status') {
+            $us['status'] = 1;
+            $ctn = $this->gaji_guru_model->edit($us, array('id_gaji_guru' => $id));
+            $this->log->add_log('Ubah Data ' . $this->modul, null);
+
+            $gg = $this->gaji_guru_model->select('*', array('id_gaji_guru'=>$id), null, null, null)->row();
+            $arr_jurnal = array(
+                'tgl_jurnal' => date('Y-m-d'),
+                'jenis_transaksi' => 'D06',
+                'keterangan' => 'Gaji Guru ('.$gg->tgl_awal.'-'.$gg->tgl_akhir.')',
+                'kredit' => 0,
+                'debit' => $gg->tot_jam * $this->setting['honor_' . strtolower($gg->tingkat)],
+                'kode_transaksi' => $gg->kode_transaksi
+            );
+//            print_r($arr_jurnal);
+            $this->jurnal->add_jurnal($arr_jurnal);
+
+            if ($ctn) {
+                $this->session->set_flashdata('message', $this->message->get_message('success', 'add-success'));
+            } else {
+                $this->session->set_flashdata('message', $this->message->get_message('danger', 'failed'));
+            }
         }
-
         redirect('transaksi/gaji_guru');
     }
 
@@ -154,11 +162,14 @@ class Gaji_guru extends MY_Controller {
     }
 
     public function get_gaji_tingkat($tingkat) {
-        $kode_setting = 'HG_'.$tingkat;
-        $gj = $this->setting_model->select('*', array('kode_setting'=>$kode_setting), null, null, null)->row();
+        $kode_setting = 'HG_' . $tingkat;
+        $gj = $this->setting_model->select('*', array('kode_setting' => $kode_setting), null, null, null)->row();
         return $gj;
     }
-    
-    
+
+    public function get_list_absen($param) {
+        $absen = $this->absen_guru_model->select('*', $param, null, null, null)->result();
+        return $absen;
+    }
 
 }

@@ -49,7 +49,8 @@
                                                     } else {
                                                         $lbl_i = $arr_i;
                                                     }
-                                                    echo '<option value="' . $lbl_i . '" >' . $arr_m[$i] . '</option>';
+                                                    $sel = $lbl_i == date('m') ? 'selected' : '';
+                                                    echo '<option value="' . $lbl_i . '" '.$sel.' >' . $arr_m[$i] . '</option>';
                                                 }
                                                 ?>
                                             </select>
@@ -62,7 +63,8 @@
                                                 <option value="">Pilih Tahun</option>  
                                                 <?php
                                                 for ($i = $common->setting['tahun_awal']; $i <= date('Y'); $i++) {
-                                                    echo '<option value="' . $i . '" >' . $i . '</option>';
+                                                    $sel_y = $i == date('Y') ? 'selected' : '';
+                                                    echo '<option value="' . $i . '" '.$sel_y.'>' . $i . '</option>';
                                                 }
                                                 ?>
                                             </select>

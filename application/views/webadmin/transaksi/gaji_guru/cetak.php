@@ -1,6 +1,5 @@
-<center>Rekap Gaji Guru <?php echo $param['tingkat'] ?></center>
-<center><?php echo $param['bulan'] == 'ALL' ? $param['tahun'] : $this->format_date->format_date_custom($param['tahun'] . '-' . $param['bulan'] . '-01', 'F Y') ?></center>
-<br>
+<center>Rekap Gaji Guru <?php echo $data->tingkat ?></center>
+<center><?php echo $data->tgl_awal .' s/d ' . $data->tgl_akhir ?></center>
 <br>
 <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%" border="1">
     <thead>
@@ -9,10 +8,9 @@
             <th rowspan="2">Nama Guru</th>
             <th rowspan="2">Mata Pejalaran</th>
             <th colspan="2">Honor Mengajar</th>
-            <th colspan="2">Horor Materi</th>
-            <th colspan="2">Horor Soal</th>
-            <th rowspan="2">Total</th>     
-            <th rowspan="2">Tanda Tangan</th>   
+            <th colspan="2">Honor Soal</th>
+            <th colspan="2">Honor Materi</th>
+            <th rowspan="2">Total</th>   
         </tr>
         <tr>
             <th>Jml</th>
@@ -22,63 +20,36 @@
             <th>Jml</th>
             <th>Subtotal</th>
         </tr>
-
     </thead>
     <tbody>
         <?php
-        if ($list_data != null) {
-            $no = 1;
-            foreach ($list_data as $data) {
-                ?>
-                <tr>
-                    <td><?php echo $no ?></td>
-                    <td><?php echo $data->nama_guru ?></td>
-                    <td><?php echo $data->mapel ?></td>
-                    <td><span class="pull-right"><?php echo $data->jml_absen != null ? $data->jml_absen : '0' ?></span></td>
-                    <td>
-                        <span class="pull-right">
-                            <?php
-                            $sub_absen = $data->jml_absen * $data->honor_mengajar;
-                            echo number_format($sub_absen);
-                            ?>
-                        </span>
-                    </td>
-                    <td><span class="pull-right"><?php echo $data->jml_materi != null ? $data->jml_materi : '0' ?></span></td>
-                    <td>
-                        <span class="pull-right">
-                            <?php
-                            $sub_materi = $data->jml_materi * $data->honor_materi;
-                            echo number_format($sub_materi);
-                            ?>
-                        </span>
-                    </td>
-                    <td><span class="pull-right"><?php echo $data->jml_soal != null ? $data->jml_soal : '0' ?></span></td>
-                    <td>
-                        <span class="pull-right">
-                            <?php
-                            $sub_soal = $data->jml_soal * $data->honor_soal;
-                            echo number_format($sub_soal);
-                            ?>
-                        </span>
-                    </td>
-                    <td>
-                        <span class="pull-right">
-                            <?php
-                            $total = $sub_absen + $sub_materi + $sub_soal;
-                            echo number_format($total);
-                            ?>
-                        </span>
-                    </td>
-                    <td style="text-align: center">
-                        
-                    </td>
-                </tr>
-                <?php
-                $no++;
-            }
-        } else {
-            echo '<tr><td colspan="11">No data available in table</td></tr>';
+        $no = 1;
+        $tot = 0;
+        foreach ($list_data_absen as $absen) {
+            $h_ajar = $absen->jml_jam * $common->setting['honor_' . strtolower($data->tingkat)];
+            $h_soal = $absen->jml_soal * $common->setting['honor_soal'];
+            $h_materi = $absen->jml_materi * $common->setting['honor_materi'];
+            ?>
+            <tr>
+                <td><?php echo $no ?></td>
+                <td><?php echo $absen->nama_guru ?></td>
+                <td><?php echo $absen->mapel ?></td>
+                <td style="text-align: center"><?php echo $absen->jml_jam ?></td>
+                <td style="text-align: right"><?php echo 'Rp. '.number_format($h_ajar); ?></td>
+                <td style="text-align: center"><?php echo $absen->jml_soal ?></td>
+                <td style="text-align: right"><?php echo 'Rp. '.number_format($h_soal); ?></td>
+                <td style="text-align: center"><?php echo $absen->jml_materi ?></td>
+                <td style="text-align: right"><?php echo 'Rp. '.number_format($h_materi); ?></td>
+                <td style="text-align: right"><?php echo 'Rp. '.number_format($h_materi + $h_ajar + $h_soal); ?></td>
+            </tr>
+            <?php
+            $tot += $h_materi + $h_ajar + $h_soal;
+            $no++;
         }
         ?>
+            <tr>
+                <td colspan="9"><strong>Total Gaji Guru</strong></td>
+                <td style="text-align: right"><?php echo 'Rp. '.number_format($tot)?></td>
+            </tr>
     </tbody>
 </table>

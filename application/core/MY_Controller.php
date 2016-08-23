@@ -105,10 +105,19 @@ class MY_Controller extends CI_Controller {
         $this->jurnal = new C_jurnal();
 
         $data_tahun_awal = $this->setting_model->select('*', array('kode_setting' => 'THA'), NULL, NULL, NULL)->row();
-        $data_honor = $this->listcode_model->select('*', array('head_list' => 'MD'), NULL, NULL, NULL)->result();
+        $honor_smp = $this->setting_model->select('*', array('kode_setting' => 'HG_SMP'), NULL, NULL, NULL)->row();
+        $honor_sma = $this->setting_model->select('*', array('kode_setting' => 'HG_SMA'), NULL, NULL, NULL)->row();
+        $honor_sd = $this->setting_model->select('*', array('kode_setting' => 'HG_SD'), NULL, NULL, NULL)->row();
+        $honor_soal = $this->setting_model->select('*', array('kode_setting' => 'HG_S'), NULL, NULL, NULL)->row();
+        $honor_materi = $this->setting_model->select('*', array('kode_setting' => 'HG_M'), NULL, NULL, NULL)->row();
 
         $this->setting = array(
             'tahun_awal' => $data_tahun_awal->value_setting,
+            'honor_smp' => $honor_smp->value_setting,
+            'honor_sma' => $honor_sma->value_setting,
+            'honor_sd' => $honor_sd->value_setting,
+            'honor_soal' => $honor_soal->value_setting,
+            'honor_materi' => $honor_materi->value_setting,
             'dash_url' => site_url('common/dash')
         );
 

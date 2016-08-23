@@ -18,8 +18,8 @@ class Gaji_guru_model extends CI_Model {
     }
 
     public function select($field, $where = array(), $limit = null, $offset = '', $order = array('field' => null, 'sort' => 'ASC')) {
-        $field .= ',(select count(DISTINCT ag.kode_guru) from t_absen_guru ag where ag.tgl_absen >= t_gaji_guru.tgl_awal and ag.tgl_absen <= t_gaji_guru.tgl_akhir) as jml_guru '
-                . ',(select sum(ag.jumlah_jam) from t_absen_guru ag where ag.tgl_absen >= t_gaji_guru.tgl_awal and ag.tgl_absen <= t_gaji_guru.tgl_akhir) as tot_jam '; 
+        $field .= ',(select count(DISTINCT ag.kode_guru) from t_absen_guru ag where ag.tgl_absen >= t_gaji_guru.tgl_awal and ag.tgl_absen <= t_gaji_guru.tgl_akhir and ag.tingkat = t_gaji_guru.tingkat) as jml_guru '
+                . ',(select sum(ag.jumlah_jam) from t_absen_guru ag where ag.tgl_absen >= t_gaji_guru.tgl_awal and ag.tgl_absen <= t_gaji_guru.tgl_akhir and ag.tingkat = t_gaji_guru.tingkat) as tot_jam '; 
         $this->db->select($field);
         if (!is_null($order['field'])) {
             $this->db->order_by($order['field'], $order['sort']);

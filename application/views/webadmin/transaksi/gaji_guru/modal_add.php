@@ -5,44 +5,31 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title"><?php echo $title_content ?></h4>
             </div>
-            <form action="<?php echo site_url('transaksi/absen_guru/process/add'); ?>" method="post" data-parsley-validate novalidate>
+            <form action="<?php echo site_url('transaksi/gaji_guru/process/add'); ?>" method="post" data-parsley-validate novalidate>
                 <div class="modal-body font-13">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="" class="control-label">Tanggal Absen</label>
-                                <input type="text" name="inp_tgl_absen" value="<?php echo date('d-m-Y') ?>" class="form-control input-sm datepicker" placeholder="tanggal lahir..">
+                                <label for="" class="control-label">Tanggal Awal</label>
+                                <input type="text" name="inp_tgl_awal" value="<?php echo date('d-m-Y') ?>" class="form-control input-sm datepicker" placeholder="tanggal awal..">
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="" class="control-label">Nama Guru</label>
-                                <select class="form-control input-sm select2" name="inp_kode_guru" required>
-                                    <option value="">Pilih Nama Guru..</option>
-                                    <?php
-                                    foreach ($list_data_guru as $guru) {
-                                        echo '<option value="' . $guru->kode_guru . '" >' . $guru->nama_guru . '</option>';
-                                    }
-                                    ?>
-                                </select>
+                                <label for="" class="control-label">Tanggal Akhir</label>
+                                <input type="text" name="inp_tgl_akhir" value="<?php echo date('d-m-Y') ?>" class="form-control input-sm datepicker" placeholder="tanggal akhir..">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="" class="control-label">Jumlah Jam</label>
-                                <input type="text" name="inp_jumlah_jam" class="form-control input-sm " placeholder="jumlah jam..">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="" class="control-label">Tingkat</label>
-                                <select class="form-control input-sm select2" name="inp_tingkat" required>
-                                    <option value="">Pilih Tingkat..</option>
+                                <label class="control-label">Tingkat</label>
+                                <select class="form-control input-sm select2" name="inp_tingkat" required="">
+                                    <option value="" selected="">Pilih Tingkat..</option>  
                                     <?php
                                     foreach ($list_data_tingkat as $tingkat) {
-                                        echo '<option value="' . $tingkat->kode_list . '" >' . $tingkat->nama_list . '</option>';
+                                        echo '<option value="' . $tingkat->kode_list . '">' . $tingkat->nama_list . '</option>';
                                     }
                                     ?>
                                 </select>

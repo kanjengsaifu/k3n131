@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Description of Siswa_model
  *
@@ -16,16 +17,24 @@ class Absen_guru_model extends CI_Model {
         parent::__construct();
     }
 
-    public function select($field, $where = array(), $limit = null, $offset = '', $order = array('field' => null, 'sort' => 'ASC')) {
-        $field .= ', (select g.nama_guru from m_guru g where g.kode_guru = t_absen_guru.kode_guru) as nama_guru';
+    public function select($field, $where = array(), $limit = null, $offset = '', $order = array('field' => null, 'sort' => 'ASC'), $group = null) {
+        $field .= ', (select g.nama_guru from m_guru g where g.kode_guru = t_absen_guru.kode_guru) as nama_guru '
+                . ', (select g.mata_pelajaran from m_guru g where g.kode_guru = t_absen_guru.kode_guru) as mapel'
+                . ', (select 0) as jml_materi'
+                . ', (select 0) as jml_soal';
+        ;
         $this->db->select($field);
         if (!is_null($order['field'])) {
             $this->db->order_by($order['field'], $order['sort']);
         }
+        
+        if(!is_null($group)){
+            $this->db->group_by($group);
+        }
         return $this->db->get_where($this->table_name, $where, $limit, $offset);
     }
-    
-     public function select_view($field, $where = array(), $limit = null, $offset = '', $order = array('field' => null, 'sort' => 'ASC')) {
+
+    public function select_view($field, $where = array(), $limit = null, $offset = '', $order = array('field' => null, 'sort' => 'ASC')) {
         $this->db->select($field);
         if (!is_null($order['field'])) {
             $this->db->order_by($order['field'], $order['sort']);

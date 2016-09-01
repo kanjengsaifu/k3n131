@@ -71,8 +71,10 @@ class Jurnal extends MY_Controller {
                 'param' => $param
             );
             $this->load->view('webadmin/index', $data);
-        } else {
+        } elseif($submit == 'print_data') {
             $this->cetak_data($array_where2, $param);
+        } else{
+            redirect('report/jurnal/grafik/'.$param['bulan'].'/'.$param['tahun']);
         }
     }
 
@@ -88,6 +90,30 @@ class Jurnal extends MY_Controller {
             'param'=>$param
         );
         $this->load->view('webadmin/report/jurnal/cetak', $data);
+    }
+    
+    public function grafik($bulan, $tahun){
+        
+        $field = 'DISTINCT(SUBSTR(kode_jurnal,1,3)) as kode'
+                . ',sum(debit) AS debit'
+                . ',sum(kredit) AS kredit';
+        
+        $array_where = array(
+            'MONTH(tgl_jurnal) = \''.$bulan.'\''=>null,
+            'YEAR(tgl_jurnal) = \''.$tahun.'\''=>null
+        );
+        
+         $data = array(
+            'title_page' => 'Semua Data',
+            'common' => $this,
+            'modul' => $this->modul,
+            'title_content' => 'Data ' . $this->modul,
+            'list_data' => $this->jurnal_model->select($field, $array_where, null, null, null, '(SUBSTR(kode_jurnal, 1, 3))')->result(),
+            'page' => 'webadmin/report/jurnal/grafik_1'
+        );
+        $this->load->view('webadmin/index', $data);
+         
+//        print_r($data['list_data']);
     }
 
     public function process($action, $id = null) {

@@ -30,7 +30,7 @@ class Pembayaran extends MY_Controller {
     }
 
     public function search() {
-        $param = array('tgl'=>$this->input->post('inp_tgl_transaksi'));
+        $param = array('tgl' => $this->input->post('inp_tgl_transaksi'));
         $tgl_transaksi = date('Y-m-d', strtotime($this->input->post('inp_tgl_transaksi')));
         $array_where = array(
             'tgl_pembayaran' => $tgl_transaksi,
@@ -43,7 +43,7 @@ class Pembayaran extends MY_Controller {
             'title_content' => 'Data ' . $this->modul,
             'list_data' => $this->pembayaran_header_model->select('*', $array_where, null, null, array('field' => 'tgl_pembayaran', 'sort' => 'desc'))->result(),
             'page' => 'webadmin/transaksi/pembayaran/search',
-            'param'=>$param
+            'param' => $param
         );
         $this->load->view('webadmin/index', $data);
     }
@@ -88,7 +88,7 @@ class Pembayaran extends MY_Controller {
             'data_header' => $this->pembayaran_header_model->select('*', array('kode_pembayaran' => $kode_transaksi), null, null, null)->row(),
             'list_data_det' => $this->pembayaran_det_model->select('*', array('kode_pembayaran' => $kode_transaksi), null, null, null)->result(),
         );
-        $this->load->view('webadmin/transaksi/pembayaran/print', $data);
+        $this->load->view('webadmin/transaksi/pembayaran/print_1', $data);
     }
 
     public function process($kode = null) {
@@ -151,6 +151,7 @@ class Pembayaran extends MY_Controller {
         redirect('transaksi/pembayaran/add/' . $kode);
     }
 
+    //add jurnal khusus pembayaran
     public function add_jurnal($kode) {
         $data_header = $this->pembayaran_header_model->select('*', array('kode_pembayaran' => $kode), null, null, null)->row();
         $list_detil = $this->pembayaran_det_model->select('*', array('kode_pembayaran' => $kode), null, null, null)->result();
@@ -165,6 +166,40 @@ class Pembayaran extends MY_Controller {
             );
             $this->jurnal->add_jurnal($arr_jurnal);
         }
+    }
+    
+    //ajax post untuk detail data
+    public function save_detail() {
+        $kode = $this->input->post('inp_kode');
+
+        $data_detil = array(
+            'kode_pembayaran' => $kode,
+            'jenis_pembayaran' => $this->input->post('inp_jenis_pembayaran'),
+            'jumlah' => $this->input->post('inp_jumlah'),
+            'bulan' => $this->input->post('inp_bulan'),
+            'tahun' => $this->input->post('inp_tahun'),
+            'keterangan' => $this->input->post('inp_ket')
+        );
+        $this->pembayaran_det_model->add($data_detil);
+
+        $return[0] = $this->get_table_detail($kode);
+        echo json_encode($return);
+    }
+    
+    public function delete_detail() {
+        $id_detail = $this->input->post('inp_id_detail');
+        $kode = $this->input->post('inp_kode');
+        $this->pembayaran_det_model->delete(array('id_pembayaran_detail' => $id_detail));
+        
+        $return[0] = $this->get_table_detail($kode);
+        echo json_encode($return);
+    }
+
+    public function get_table_detail($kode) {
+        $data = array(
+            'list_data_det' => $this->pembayaran_det_model->select('*', array('kode_pembayaran' => $kode), null, null, null)->result()
+        );
+        return $this->load->view('webadmin/transaksi/pembayaran/list_detail', $data, TRUE);
     }
 
 }

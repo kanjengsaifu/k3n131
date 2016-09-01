@@ -3,14 +3,18 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="button-list">
-                    <a href="<?php echo site_url('transaksi/gaji_guru/cetak/' .$data->id_gaji_guru) ?>">
-                        <button class="btn btn-default waves-effect waves-light pull-right">Cetak <i class="fa fa-print"></i></button>
-                    </a>
-                    <a href="<?php echo site_url('transaksi/gaji_guru/cetak_detil/'.$data->id_gaji_guru) ?>">
-                        <button class="btn btn-primary waves-effect waves-light pull-right">Cetak Detil <i class="fa fa-print"></i></button>
-                    </a>
+                    <div class="btn-group pull-right m-t-15">
+                        <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">
+                            Cetak <span class="m-l-5"><i class="fa fa-print"></i></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="<?php echo site_url('transaksi/gaji_guru/cetak/' . $data->id_gaji_guru) ?>"><i class="fa fa-list-alt"></i> Cetak</a></li>
+                            <li><a href="<?php echo site_url('transaksi/gaji_guru/cetak_detil/excel/' . $data->id_gaji_guru) ?>"><i class="fa fa-file-excel-o"></i> Cetak Detil</a></li>
+                            <li><a href="<?php echo site_url('transaksi/gaji_guru/cetak_detil/screen/' . $data->id_gaji_guru) ?>"><i class="fa fa-tv"></i> Cetak Detil</a></li>
+                        </ul>
+                    </div>                   
                 </div>
-                <h4 class="page-title"><?php echo $modul.' ( ' . $data->tingkat . ' | ' . $data->tgl_awal .' s/d ' . $data->tgl_akhir . ' )' ?></h4>
+                <h4 class="page-title"><?php echo $modul . ' ( ' . $data->tingkat . ' | ' . $data->tgl_awal . ' s/d ' . $data->tgl_akhir . ' )' ?></h4>
                 <?php $this->load->view('webadmin/transaksi/gaji_guru/breadcrumbs'); ?>
             </div>
         </div>        

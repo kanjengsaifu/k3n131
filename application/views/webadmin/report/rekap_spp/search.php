@@ -26,8 +26,8 @@
                                             <select class="form-control input-sm select2" name="inp_kelas" required>
                                                 <option value="">Pilih Kelas</option>
                                                 <?php
-                                                foreach ($list_data_kelas as $kelas) {
-                                                    echo '<option value="' . $kelas->nama_list . '"'.  set_select('inp_kelas', $kelas->nama_list, $kelas->nama_list == $param['kelas']).'>' . $kelas->nama_list . '</option>';
+                                                for ($i = 5; $i <= 12; $i++) {
+                                                    echo '<option value="' . $i . '"' . set_select('inp_kelas', $i, $i == $param['kelas']) . '>' . $i . '</option>';
                                                 }
                                                 ?>
                                             </select>

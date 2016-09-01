@@ -35,7 +35,7 @@
                                     </div>
                                     <div class="col-md-3">   
                                         <div class="form-group"> 
-                                            <label class="control-label">Bulan / Tahun</label>   
+                                            <label class="control-label">Bulan</label>   
                                             <?php
                                             $arr_m = $this->format_date->list_month();
                                             ?>
@@ -57,7 +57,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group"> 
-                                            <label class="control-label">&nbsp;</label> 
+                                            <label class="control-label">Tahun</label> 
                                             <select class="form-control input-sm select2" name="inp_tahun" required>
                                                 <option value="">Pilih Tahun</option>  
                                                 <?php
@@ -77,6 +77,9 @@
                                     </button>
                                     <button class="btn btn-default waves-effect waves-light w-md" type="submit" name="submit" value="print_data">
                                         <i class="icon fa fa-refresh"></i> Cetak
+                                    </button>
+                                    <button class="btn btn-warning waves-effect waves-light w-md" type="submit" name="submit" value="grafik_data">
+                                        <i class="icon fa fa-signal"></i> Grafik
                                     </button>
                                 </div>
                             </div>

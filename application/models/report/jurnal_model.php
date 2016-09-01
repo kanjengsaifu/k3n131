@@ -22,10 +22,15 @@ class Jurnal_model extends CI_Model {
         parent::__construct();
     }
 
-    public function select($field, $where = array(), $limit = null, $offset = '', $order = array('field' => null, 'sort' => 'ASC')) {        
+    public function select($field, $where = array(), $limit = null, $offset = '', $order = array('field' => null, 'sort' => 'ASC'), $group = null) { 
+        $field .= ',(select u.nama_list from u_list_code u where u.kode_list = substr(r_jurnal.kode_jurnal, 1,3)) as nama_kategori';
+        $this->db->_protect_identifiers=false;
         $this->db->select($field);
         if (!is_null($order['field'])) {
             $this->db->order_by($order['field'], $order['sort']);
+        }
+        if(!is_null($group)){
+            $this->db->group_by($group);
         }
         return $this->db->get_where($this->table_name, $where, $limit, $offset);
     }

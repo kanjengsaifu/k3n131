@@ -24,4 +24,3 @@ function view_list_modul($param, $list_data_kategori, $list_data_modul) {
                 </div>
             </div>';
 }
-?>

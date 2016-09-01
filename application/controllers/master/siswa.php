@@ -30,6 +30,33 @@ class Siswa extends MY_Controller {
         );
         $this->load->view('webadmin/index', $data);
     }
+    
+    public function ajax_table() {
+        if (!$this->input->is_ajax_request()) {
+            exit('No direct script access allowed');
+        } else {
+            $table = 'm_siswa';
+            $primaryKey = 'id_siswa';
+            $columns = array(
+                array('db' => 'id_siswa', 'dt' => 'id_siswa'),
+                array('db' => 'kode_siswa', 'dt' => 'kode_siswa'),
+                array('db' => 'nama_siswa', 'dt' => 'nama_siswa'),                
+                array('db' => 'telp_siswa', 'dt' => 'telp_siswa'),
+                array('db' => 'kelas', 'dt' => 'kelas'),
+                $format = array('db' => 'id_siswa', 'dt' => 'aksi', 'formatter' => function( $d ) {
+                    return '<a href="' . site_url('master/siswa/view/' . $d) . '">'
+                            . '<button class="btn btn-icon waves-effect waves-effect waves-light btn-xs btn-white">'
+                            . '<i class="fa fa-folder-open"></i> </button>'
+                            . '</a>';
+//                            . $this->array_custom->delete_modal('Siswa', site_url('master/siswa/delete/' . $d), $d);
+                })
+            );
+            $sql_details = $this->conn;
+            echo json_encode(
+                    Datatables_ssp::simple($_GET, $sql_details, $table, $primaryKey, $columns)
+            );
+        }
+    }
 
     public function search() {
 
@@ -58,7 +85,7 @@ class Siswa extends MY_Controller {
             'list_data' => $this->siswa_model->select('*', $array_where, null, null, array('field' => 'nama_siswa', 'sort' => 'asc'))->result(),
             'list_data_jk' => $this->listcode_model->select('*', array('head_list' => 'JK'), null, null, null)->result(),
             'list_data_kelas' => $this->listcode_model->select('*', array('head_list' => 'KLS'), null, null, array('field' => 'id_list_code', 'sort' => 'asc'))->result(),
-            'page' => 'webadmin/master/siswa/search',
+            'page' => 'webadmin/master/siswa/search_1',
             'param' => $param
         );
         $this->load->view('webadmin/index', $data);

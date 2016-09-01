@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-lg-9">
                 <div class="card-box">
-                    <h4 class="m-t-0 header-title"><b><?php echo $title_page?></b></h4>  
+                    <h4 class="m-t-0 header-title"><b><?php echo $title_page ?></b></h4>  
                     <form action="<?php echo site_url('transaksi/absen_siswa/process/add') ?>" method="post" data-parsley-validate="" novalidate="">
                         <div class="row">
                             <div class="col-md-3">
@@ -34,7 +34,7 @@
 
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">Kelas</label>
-                                    <select class="form-control input-sm select2" name="inp_kelas" id="inp_kelas" required>
+                                    <select class="form-control input-sm select2" name="inp_kelas" id="inp_kelas" required onchange="refreshListSiswa()">
                                         <option value="">Pilih Kelas</option>
                                         <?php
                                         foreach ($list_data_kelas as $kelas) {
@@ -81,3 +81,20 @@
         top: 300px !important;
     }
 </style>
+<script type="text/javascript">
+
+    function refreshListSiswa() {
+        var kelas = $('#inp_kelas option:selected').val();
+        $.ajax({
+            url: "<?php echo base_url(); ?>master/siswa/pupolate_kelas",
+            data: {kelas: kelas},
+            type: "POST",
+            dataType: "json",
+            success: function(data) {
+                $("#table-absen").html(data[0]);
+            }
+        });
+    }
+
+
+</script>

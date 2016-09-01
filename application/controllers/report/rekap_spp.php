@@ -47,14 +47,15 @@ class Rekap_spp extends MY_Controller {
 
         $array_bulan = $this->get_bulan_tahun($param['bulan_aw'] . '-' . $param['tahun_aw'], $param['bulan_ak'] . '-' . $param['tahun_ak']);
         $param = array_merge($param, array('array_bulan'=>$array_bulan));
-        $field = 'kode_siswa, nama_siswa';
+        $field = 'kode_siswa, nama_siswa, kelas';
         for ($i = 0; $i < count($array_bulan); $i++) {
             $bl = $array_bulan[$i];
             $as = 'j_' . str_replace('-', '_', $bl);
-            $field .= ',(select v.tgl_pembayaran from view_pembayaran_spp v WHERE v.kode_siswa = m_siswa.kode_siswa and v.pembayaran = \'' . $bl . '\') as ' . $as;
+            $field .= ',(select v.tgl_pembayaran from view_pembayaran_spp v WHERE v.kode_siswa = m_siswa.kode_siswa and v.pembayaran = \'' . $bl . '\' limit 1) as ' . $as;
         }
 
-        $array_where = array('kelas' => $param['kelas']);
+//        $array_where = array('kelas like \'%'.$param['kelas'].'%\'' => null);
+        $array_where = array('kelas is not null'=>null);
 
         if ($submit == 'search_data') {
             $data = array(
@@ -62,7 +63,7 @@ class Rekap_spp extends MY_Controller {
                 'common' => $this,
                 'modul' => $this->modul,
                 'title_content' => 'Data ' . $this->modul,
-                'list_data' => $this->siswa_model->select($field, $array_where, null, null, null)->result_array(),
+                'list_data' => $this->siswa_model->select($field, $array_where, null, null, array('field'=>'kelas, nama_siswa', 'sort'=>'asc'))->result_array(),
                 'list_data_kelas' => $this->listcode_model->select('*', array('head_list' => 'KLS'), null, null, null)->result(),
                 'page' => 'webadmin/report/rekap_spp/search',
                 'param' => $param
@@ -80,10 +81,10 @@ class Rekap_spp extends MY_Controller {
         header('Cache-Control: max-age=0');
 
         $data = array(
-            'list_data' => $this->siswa_model->select($field, $array_where, null, null, null)->result_array(),
+            'list_data' => $this->siswa_model->select($field, $array_where, null, null, array('field'=>'kelas,nama_siswa', 'sort'=>'asc'))->result_array(),
             'param' => $param
         );
-        $this->load->view('webadmin/report/rekap_spp/cetak', $data);
+        $this->load->view('webadmin/report/rekap_spp/cetak_1', $data);
     }
 
     public function process($action, $id = null) {

@@ -68,4 +68,3 @@
         });
     });
 </script>
-<!--highchart-->

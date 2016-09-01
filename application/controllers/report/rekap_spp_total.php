@@ -19,12 +19,13 @@ class Rekap_spp_total extends MY_Controller {
     }
 
     public function index() {
-//        $data = $this->get_jml_bayar(5);
-//        print_r($data);
-
+        $this->list_data1('08', '2016');
+    }
+    
+    public function list_data1($bulan, $tahun){
         echo '<br><br><br>';
         for ($i = 5; $i <= 12; $i++) {
-            $x = $this->get_jml_bayar($i, '09',2016);
+            $x = $this->get_jml_bayar($i, $bulan,$tahun);
             echo $i . ' - ' . $x->jml_siswa . ' - ' . $x->jml_siswa_bayar . '<br>';
         }
     }

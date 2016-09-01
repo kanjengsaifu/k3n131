@@ -46,7 +46,7 @@ class Absen_guru extends MY_Controller {
             'common' => $this,
             'modul' => $this->modul,
             'title_content' => 'Data ' . $this->modul,
-            'list_data' => $this->absen_guru_model->select('*', $array_where, null, null, array('field' => 'nama_guru', 'sort' => 'desc'))->result(),
+            'list_data' => $this->absen_guru_model->select('*', $array_where, null, null, array('field' => 'nama_guru', 'sort' => 'asc'))->result(),
             'list_data_guru' => $this->guru_model->select('*', null, null, null, array('field' => 'nama_guru', 'sort' => 'asc'))->result(),
             'list_data_tingkat' => $this->listcode_model->select('*', array('head_list' => 'TK'), null, null, null)->result(),
             'page' => 'webadmin/transaksi/absen_guru/search',

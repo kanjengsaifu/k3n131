@@ -82,7 +82,7 @@ class Gaji_guru extends MY_Controller {
         $this->load->view('webadmin/transaksi/gaji_guru/cetak', $data);
     }
 
-    public function cetak_detil($id = null) {
+    public function cetak_detil($act, $id = null) {
         $data_gaji = $this->gaji_guru_model->select('*', array('id_gaji_guru' => $id), null, null, null)->row();
         $array_where = array(
             'tgl_absen >= \'' . $data_gaji->tgl_awal . '\'' => null,
@@ -90,10 +90,12 @@ class Gaji_guru extends MY_Controller {
             'tingkat' => $data_gaji->tingkat
         );
 
-        $filename = 'Rekap Gaji Guru (Detil)' . '_' . $data_gaji->tingkat . '' . mt_rand(1, 1000) . '.xls'; //just some random filename
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="' . $filename . '"');
-        header('Cache-Control: max-age=0');
+        if ($act == 'excel') {
+            $filename = 'Rekap Gaji Guru (Detil)' . '_' . $data_gaji->tingkat . '' . mt_rand(1, 1000) . '.xls'; //just some random filename
+            header('Content-Type: application/vnd.ms-excel');
+            header('Content-Disposition: attachment;filename="' . $filename . '"');
+            header('Cache-Control: max-age=0');
+        }
 
         $field = 'kode_guru '
                 . ',sum(jumlah_jam) as jml_jam';
@@ -128,11 +130,11 @@ class Gaji_guru extends MY_Controller {
             $ctn = $this->gaji_guru_model->edit($us, array('id_gaji_guru' => $id));
             $this->log->add_log('Ubah Data ' . $this->modul, null);
 
-            $gg = $this->gaji_guru_model->select('*', array('id_gaji_guru'=>$id), null, null, null)->row();
+            $gg = $this->gaji_guru_model->select('*', array('id_gaji_guru' => $id), null, null, null)->row();
             $arr_jurnal = array(
                 'tgl_jurnal' => date('Y-m-d'),
                 'jenis_transaksi' => 'D06',
-                'keterangan' => 'Gaji Guru ('.$gg->tgl_awal.'-'.$gg->tgl_akhir.')',
+                'keterangan' => 'Gaji Guru (' . $gg->tgl_awal . '-' . $gg->tgl_akhir . ')',
                 'kredit' => 0,
                 'debit' => $gg->tot_jam * $this->setting['honor_' . strtolower($gg->tingkat)],
                 'kode_transaksi' => $gg->kode_transaksi
@@ -168,7 +170,7 @@ class Gaji_guru extends MY_Controller {
     }
 
     public function get_list_absen($param) {
-        $absen = $this->absen_guru_model->select('*', $param, null, null, null)->result();
+        $absen = $this->absen_guru_model->select('*', $param, null, null, array('field' => 'tgl_absen', 'sort' => 'asc'))->result();
         return $absen;
     }
 

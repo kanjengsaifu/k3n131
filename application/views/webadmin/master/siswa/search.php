@@ -9,54 +9,6 @@
                 <?php $this->load->view('webadmin/master/siswa/breadcrumbs'); ?>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card-box table-responsive font-13">
-                    <h4 class="m-t-0 header-title"><b>Filter Search</b></h4>
-                    <?php
-                    if ($this->session->flashdata('message') != ''):echo $this->session->flashdata('message');
-                    endif;
-                    ?>
-                    <div class="p-20">
-                        <form action="<?php echo site_url('master/siswa/search') ?>" role="form" method="POST" data-parsley-validate novalidate>
-                            <div class="col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <div class="form-group">                         
-                                            <select class="form-control input-sm select2" name="inp_kelas" required>
-                                                <option value="">Pilih Kelas</option>
-                                                <option value="ALL" <?php echo $param['kelas'] == 'ALL' ? 'selected' : '' ?>>ALL</option>
-                                                <?php
-                                                foreach ($list_data_kelas as $kelas) {
-                                                    echo '<option value="' . $kelas->nama_list . '"' . set_select('inp_kelas', $kelas->nama_list, $kelas->nama_list == $param['kelas']) . '>' . $kelas->nama_list . '</option>';
-                                                }
-                                                ?>
-                                                <option value="-">-</option>
-                                            </select>
-                                        </div>
-                                    </div> 
-                                    <div class="col-md-3">   
-                                        <div class="form-group">   
-                                            <input type="text" name="inp_nama_siswa" class="form-control input-sm" required  placeholder="nama siswa.." value="<?php echo $param['nama'] != null ? $param['nama'] : '*' ?>">
-                                            <span class="help-block"><small><strong>*</strong> untuk semua siswa.</small></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-1">
-                                        <button class="btn btn-primary btn-block waves-effect waves-light w-md" type="submit" name="submit" value="search_data">
-                                            <i class="icon fa fa-refresh"></i> Reload
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>                            
-
-                        </form> 
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
         <!-- Page-Title -->
         <div class="row">
             <div class="col-sm-12">
@@ -65,10 +17,11 @@
                 endif;
                 ?>
                 <div class="card-box table-responsive font-13">
-                    <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    <table id="test" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                         <thead>
                             <tr>
                                 <th style="width: 5%">#</th>
+                                <th>Kode</th>                                
                                 <th>Nama</th>
                                 <th>Telp.</th>
                                 <th>Kelas</th>
@@ -76,34 +29,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            $no = 0;
-                            foreach ($list_data as $data) {
-                                $no++;
-                                ?>
-                                <tr>
-                                    <td><?php echo $no ?></td>
-                                    <td><?php echo $data->nama_siswa ?></td>
-                                    <td><?php echo $data->telp_siswa ?></td>
-                                    <td><?php echo $data->kelas ?></td>
-                                    <td style="text-align: center;">
-                                        <a href="<?php echo site_url('master/siswa/view/' . $data->kode_siswa) ?>"><button class="btn btn-icon waves-effect waves-effect waves-light btn-xs btn-white"><i class="fa fa-folder-open"></i> </button></a>
-                                        <a data-toggle="modal" data-target="#modal-edit-<?php echo $data->id_siswa ?>"><button class="btn btn-icon waves-effect waves-effect waves-light btn-xs btn-white"><i class="fa fa-edit"></i> </button></a>
-                                        <?php echo $this->array_custom->delete_modal($modul, site_url('master/siswa/delete/' . $data->id_siswa), $data->id_siswa); ?>
-                                    </td>
-                                </tr>
-                                <?php
-                                $siswa['data'] = $data;
-                                $this->load->view('webadmin/master/siswa/modal_edit', $siswa);
-                                ?>
-                                <?php
-                            }
-                            ?> 
-                        </tbody>
-<!--                        <script type="text/javascript">
-                            $(document).ready(function() {
+                        <script type="text/javascript">
+                            $(document).ready(function () {
 
-                                $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
+                                $.fn.dataTableExt.oApi.fnPagingInfo = function (oSettings)
                                 {
                                     return {
                                         "iStart": oSettings._iDisplayStart,
@@ -116,10 +45,10 @@
                                     };
                                 };
 
-                                var t = $('#data1').DataTable({
+                                var t = $('#test').DataTable({
                                     "processing": true,
                                     "serverSide": true,
-                                    "ajax": '<?php echo site_url('master/siswa/ajax_tabel'); ?>',
+                                    "ajax": '<?php echo site_url('master/siswa/ajax_table'); ?>',
                                     "columns": [
                                         {
                                             "data": null,
@@ -128,12 +57,12 @@
                                         },
                                         {"data": "kode_siswa"},
                                         {"data": "nama_siswa"},
-                                        {"data": "telp_siswa", "class": "text_center"},
-                                        {"data": "kelas", "class": "text_center"},
-                                        {"data": "aksi"}
+                                        {"data": "telp_siswa"},
+                                        {"data": "kelas"},
+                                        {"data": "aksi", "class": "text_center"}
                                     ],
-                                    "order": [[1, 'DESC']],
-                                    "rowCallback": function(row, data, iDisplayIndex) {
+                                    "order": [[2, 'DESC']],
+                                    "rowCallback": function (row, data, iDisplayIndex) {
                                         var info = this.fnPagingInfo();
                                         var page = info.iPage;
                                         var length = info.iLength;
@@ -142,7 +71,8 @@
                                     }
                                 });
                             });
-                        </script>-->
+                        </script>
+                        </tbody>
                     </table>
                 </div>
             </div>

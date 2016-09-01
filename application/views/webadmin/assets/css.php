@@ -18,3 +18,40 @@
 <link href="<?php echo base_url() . 'assets/webadmin/' ?>assets/plugins/multiselect/css/multi-select.css"  rel="stylesheet" type="text/css" />
 <!-- select2 css-->
 <link href="<?php echo base_url() . 'assets/webadmin/' ?>assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+
+<style>
+    .text-color{
+        color: #751f21;
+    }
+    .text_center{
+        text-align: center !important;
+    }
+    .penting{
+        width: 100% !important;
+    }
+    .scrl{
+        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        width:auto;
+        height:290px;
+    }
+    #disabled {
+        pointer-events: none;
+        cursor: default;
+        opacity: 0.5;
+        filter: alpha(opacity=50);
+    }
+    .dis {
+        pointer-events: none;
+        cursor: default;
+        opacity: 0.5;
+        filter: alpha(opacity=50);
+    }
+    .text-bold{
+        font-weight: bold;
+    }
+    .render{
+        color: rgb(95, 190, 170); font-size: 12px
+    }
+</style>

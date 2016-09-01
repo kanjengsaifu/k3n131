@@ -26,6 +26,7 @@ class MY_Controller extends CI_Controller {
     var $submenu = null;
     var $setting = null;
     var $countmenu = null;
+    var $conn = null;
 
     public function __construct() {
         parent::__construct();
@@ -59,15 +60,7 @@ class MY_Controller extends CI_Controller {
         $this->load->library('upload');
         $this->load->library('image_lib');
         $this->load->library('datatables_ssp');
-
-        //$this->is_logged_in();
-        $this->conn = array(
-            'user' => $this->db->username,
-            'pass' => $this->db->password,
-            'db' => $this->db->database,
-            'host' => $this->db->hostname
-        );
-
+       
         $this->template_path = FCPATH . "assets/webadmin/template_report/";
 //        $this->grafik_pasien = $this->date_grafik();
         $this->initialize();
@@ -127,6 +120,13 @@ class MY_Controller extends CI_Controller {
                 . '(SELECT count(r.id_role) FROM u_role r WHERE r.kode_role = u_role.kode_role AND r.hak_akses LIKE \'%R%\') AS report, '
                 . '(SELECT count(r.id_role) FROM u_role r WHERE r.kode_role = u_role.kode_role AND r.hak_akses LIKE \'%U%\') AS utilitas';
         $this->countmenu = $this->role_model->select($field_countmenu, array('nama_role' => $this->session->userdata('kn_type')), NULL, NULL, NULL)->result_array();
+        
+        $this->conn = array(
+            'user' => $this->db->username,
+            'pass' => $this->db->password,
+            'db' => $this->db->database,
+            'host' => $this->db->hostname
+        );
     }
 
     public function ajax_tabel_lib($table_name, $table_column, $button = null) {

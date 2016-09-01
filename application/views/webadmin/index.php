@@ -15,7 +15,7 @@
         <?php $this->load->view($page); ?>
         <?php $this->load->view('webadmin/assets/js'); ?>
         <?php // $this->load->view('webadmin/assets/highchart'); ?>
-        <?php $this->load->view('webadmin/assets/additional'); ?>
-        <?php $this->load->view('webadmin/assets/onchange'); ?>
+        <?php // $this->load->view('webadmin/assets/additional'); ?>
+        <?php // $this->load->view('webadmin/assets/onchange'); ?>
     </body>
 </html>

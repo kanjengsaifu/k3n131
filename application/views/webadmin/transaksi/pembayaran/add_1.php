@@ -9,7 +9,7 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <?php
                 if ($this->session->flashdata('message') != ''):echo $this->session->flashdata('message');
                 endif;
@@ -17,20 +17,20 @@
                 <div class="card-box table-responsive font-13">
                     <h4 class="m-t-0 header-title"><b>Pembayaran No. <i>#<?php echo $data_header->kode_pembayaran ?></i></b></h4>
                     <p>&nbsp;</p>
-                    <form id="form_pembayaran" action="<?php echo site_url('transaksi/pembayaran/process/' . $data_header->kode_pembayaran) ?>" role="form" method="POST">                        
-                        <input type="hidden" name="inp_kode" value="<?php echo $data_header->kode_pembayaran ?>" />
-                        <div class="col-sm-12">
+                    <form action="<?php echo site_url('transaksi/pembayaran/process/' . $data_header->kode_pembayaran) ?>" role="form" method="POST">                        
+
+                        <div class="col-sm-8">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="" class="control-label">Tanggal Pembayaran</label>
                                         <input type="text" name="inp_tgl_pembayaran" value="<?php echo $this->format_date->format_date_dmy($data_header->tgl_pembayaran) ?>" class="form-control input-sm datepicker" placeholder="tanggal lahir..">
                                     </div>  
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="control-label">Jenis Pembayaran</label>
-                                        <select class="form-control input-sm select2" name="inp_jenis_pembayaran" id="inp_pembayaran" onchange="hideBulanTahun()">
+                                        <select class="form-control input-sm select2" name="inp_jenis_pembayaran" id="inp_pembayaran">
                                             <option value="">Pilih Jenis Pembayaran</option>
                                             <?php
                                             foreach ($list_data_kat as $kat) {
@@ -40,7 +40,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group" id="div-bulan" style="display: none">
                                         <label for="" class="control-label">Bulan</label>
                                         <?php $arr_m = $this->format_date->list_month(); ?>
@@ -56,7 +56,7 @@
                                         </select>
                                     </div>                                    
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group" id="div-tahun" style="display: none">
                                         <label for="" class="control-label">Tahun</label>
                                         <select class="form-control input-sm select2" name="inp_tahun" >
@@ -71,7 +71,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="" class="control-label">Nama Siswa</label>          
                                         <select class="form-control input-sm select2" name="inp_kode_siswa" id="inp_kode_siswa" required>
@@ -84,46 +84,71 @@
                                         </select>
                                     </div>       
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-3">
                                     <div class="form-group">
                                         <label class="control-label">Jumlah Bayar </label>
-                                        <input id="inp_jml" type="text" name="inp_jumlah" class="form-control input-sm"  placeholder="jumlah bayar..">
+                                        <input type="text" name="inp_jumlah" class="form-control input-sm"  placeholder="jumlah bayar..">
                                     </div> 
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Keterangan </label>
-                                        <input id="inp_ket" type="text" name="inp_ket" class="form-control input-sm"   placeholder="keterangan...">
+                                        <input type="text" name="inp_ket" class="form-control input-sm"   placeholder="keterangan...">
                                     </div>   
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-12">           
-                                    <div class="button-list">
-                                        <button class="btn btn-primary waves-effect waves-light w-md pull-right" type="submit" name="submit" value="save_header">
-                                            <i class="icon fa fa-save"></i> Simpan 
-                                        </button>
-                                        <button onclick="add_detail()" class="btn btn-default waves-effect waves-light w-md pull-right" type="button">
-                                            <i class="icon fa fa-plus"></i> Pembayaran 
-                                        </button>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="col-sm-4">           
+                            <div class="button-list">
+                                <button class="btn btn-primary waves-effect waves-light w-md pull-right" type="submit" name="submit" value="save_header">
+                                    <i class="icon fa fa-save"></i> Simpan 
+                                </button>
+                                <button class="btn btn-default waves-effect waves-light w-md pull-right" type="submit" name="submit" value="save_detail">
+                                    <i class="icon fa fa-plus"></i> Pembayaran 
+                                </button>
                             </div>
                         </div>
 
                     </form> 
                 </div>
             </div>
+        </div>
 
-            <div class="col-lg-6">
+        <div class="row">
+            <div class="col-lg-12">
                 <div class="card-box">
-                    <h4 class="m-t-0 header-title"><b>Detil Pembayaran</b></h4>
-                    <p>&nbsp;</p>
-                    <div id="detail_data">
-                        <?php
-                        echo $common->get_table_detail($data_header->kode_pembayaran);
-                        ?>
-                    </div>
+                    <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th style="width: 5%">#</th>
+                                <th style="width: 75%">Keterangan </th>
+                                <th style="width: 10%">Subtotal</th>
+                                <th style="width: 10%">Tools</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            foreach ($list_data_det as $detail) {
+                                ?>
+                                <tr>
+                                    <td><?php echo $no ?></td>
+                                    <td>
+                                        <?php
+                                        echo $detail->jns_pemb == 'SPP' ? 'SPP Bulan ' . $this->format_date->format_date_custom($detail->tahun . '-' . $detail->bulan . '-01', 'F Y') : 'Pendaftaran (' . $detail->keterangan . ')';
+                                        ?>
+                                    </td>
+                                    <td style="text-align: right"><?php echo number_format($detail->jumlah) ?></td>
+                                    <td style="text-align: center">
+                                        <?php echo $this->array_custom->delete_modal('detil pembayaran', site_url('transaksi/pembayaran/delete_detil/' . $detail->kode_pembayaran . '/' . $detail->id_pembayaran_detail), $detail->id_pembayaran_detail); ?>
+                                    </td>
+                                </tr>
+                                <?php
+                                $no++;
+                            }
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -137,54 +162,3 @@
         top: 330px !important;
     }
 </style>
-
-<script type="text/javascript">
-
-    function add_detail() {
-        var formData = $("#form_pembayaran").serializeArray();
-        formData.push({name: "submit", value: "save_detail"});
-        $.ajax({
-            url: "<?php echo site_url('transaksi/pembayaran/save_detail'); ?>",
-            data: formData,
-            type: "POST",
-            dataType: "json",
-            success: function(data) {
-                $("#detail_data").html(data[0]);
-                $("#inp_jml").val('');
-                $("#inp_ket").val('');
-            },
-            error: function(xhr, textStatus, errorThrown) {
-                alert(errorThrown);
-            }
-        });
-    }
-
-    function delete_detail(id) {
-        $.ajax({
-            url: "<?php echo site_url('transaksi/pembayaran/delete_detail'); ?>",
-            data: {inp_id_detail: id, inp_kode: '<?php echo $data_header->kode_pembayaran ?>'},
-            type: "POST",
-            dataType: "json",
-            success: function(data) {
-                $("#detail_data").html(data[0]);
-            },
-            error: function(xhr, textStatus, errorThrown) {
-                alert(errorThrown);
-            }
-        });
-    }
-
-    function hideBulanTahun() {
-        var pembayaran = $('#inp_pembayaran option:selected').text();
-
-        if (pembayaran == 'SPP') {
-            $("#div-bulan").show();
-            $("#div-tahun").show();
-        }else{
-            $("#div-bulan").hide();
-            $("#div-tahun").hide();
-        }
-    }
-
-
-</script>

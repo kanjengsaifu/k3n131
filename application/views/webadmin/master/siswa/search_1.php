@@ -157,7 +157,7 @@
 </div>
 <?php $this->load->view('webadmin/master/siswa/modal_add'); ?>
 <style>
-    .dropdown-menu {
+    .datepicker.dropdown-menu {
         top: 170px !important;
     }
 

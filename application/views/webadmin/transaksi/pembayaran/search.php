@@ -24,7 +24,7 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <div class="form-group">                         
-                                            <input type="text" name="inp_tgl_transaksi" class="form-control input-sm datepicker" placeholder="tanggal transaksi.." required="">
+                                            <input type="text" name="inp_tgl_transaksi" class="form-control input-sm datepicker" value="<?php echo date('d-m-Y', strtotime($param['tgl']))?>" placeholder="tanggal transaksi.." required="">
                                         </div>
                                     </div> 
                                     <div class="col-sm-1">
@@ -92,7 +92,7 @@
     </div>
 </div>
 <style>
-    .dropdown-menu {
+    .datepicker.dropdown-menu {
         top: 300px !important;
     }
 </style>

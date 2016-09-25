@@ -17,34 +17,22 @@
                     endif;
                     ?>
                     <div class="p-20">
-                        <form action="<?php echo site_url('report/rekap_spp/search') ?>" role="form" method="POST" data-parsley-validate novalidate>
+                        <form action="<?php echo site_url('report/rekap_spp_total/search') ?>" role="form" method="POST" data-parsley-validate novalidate>
                             <div class="col-sm-9">
                                 <div class="row">
+                                    
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label">Kelas</label>                            
-                                            <select class="form-control input-sm select2" name="inp_kelas" required>
-                                                <option value="">Pilih Kelas</option>
-                                                <?php
-                                                foreach ($list_data_kelas as $kelas) {
-                                                    echo '<option value="' . $kelas->nama_list . '"'.  set_select('inp_kelas', $kelas->nama_list, $kelas->nama_list == $param['kelas']).'>' . $kelas->nama_list . '</option>';
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label class="control-label">Batas Awal</label>
+                                            <label class="control-label">Bulan</label>
                                             <?php
                                             $arr_m = $this->format_date->list_month();
                                             ?>
-                                            <select class="form-control input-sm select2" name="inp_bulan_aw" required="">
+                                            <select class="form-control input-sm select2" name="inp_bulan" required="">
                                                 <option value="">Pilih Bulan </option>  
                                                 <?php
                                                 for ($i = 0; $i < 12; $i++) {
                                                     $arr_i = $i + 1;
-                                                    $lbl_i = $i < 10 ? '0' . $arr_i : $arr_i;
+                                                    $lbl_i = $arr_i < 10 ? '0' . $arr_i : $arr_i;
                                                     echo '<option value="' . $lbl_i . '" ' . set_select('inp_bulan', $lbl_i, $lbl_i == date('m')) . '>' . $arr_m[$i] . '</option>';
                                                 }
                                                 ?>
@@ -53,8 +41,8 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label class="control-label">&nbsp;</label>                                            
-                                            <select class="form-control input-sm select2" name="inp_tahun_aw" required>
+                                            <label class="control-label">Tahun</label>                                            
+                                            <select class="form-control input-sm select2" name="inp_tahun" required>
                                                 <option value="">Pilih Tahun </option>  
                                                 <?php
                                                 for ($i = $common->setting['tahun_awal']; $i <= date('Y'); $i++) {
@@ -63,35 +51,7 @@
                                                 ?>
                                             </select>
                                         </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label class="control-label">Batas Akhir</label>                    
-                                            <select class="form-control input-sm select2" name="inp_bulan_ak" required="">
-                                                <option value="">Pilih Bulan </option>  
-                                                <?php
-                                                for ($i = 0; $i < 12; $i++) {
-                                                    $arr_i = $i + 1;
-                                                    $lbl_i = $i < 10 ? '0' . $arr_i : $arr_i;
-                                                    echo '<option value="' . $lbl_i . '" ' . set_select('inp_bulan', $lbl_i, $lbl_i == date('m')) . '>' . $arr_m[$i] . '</option>';
-                                                }
-                                                ?>
-                                            </select>  
-                                        </div>
-                                    </div>              
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label">&nbsp;</label>            
-                                            <select class="form-control input-sm select2" name="inp_tahun_ak" required>
-                                                <option value="">Pilih Tahun </option>  
-                                                <?php
-                                                for ($i = $common->setting['tahun_awal']; $i <= date('Y'); $i++) {
-                                                    echo '<option value="' . $i . '" ' . set_select('inp_tahun', $i, $i == date('Y')) . '>' . $i . '</option>';
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>               
+                                    </div>                                              
                                 </div>
                             </div>                            
                             <div class="col-sm-3">

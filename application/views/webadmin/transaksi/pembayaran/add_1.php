@@ -158,7 +158,7 @@
     </div>    
 </div>
 <style>
-    .dropdown-menu {
+    .datepicker.dropdown-menu {
         top: 330px !important;
     }
 </style>

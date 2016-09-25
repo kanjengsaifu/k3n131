@@ -49,8 +49,10 @@
                             $no = 1;
                             foreach ($list_data_absen as $absen) {
                                 $h_ajar = $absen->jml_jam * $common->setting['honor_' . strtolower($data->tingkat)];
-                                $h_soal = $absen->jml_soal * $common->setting['honor_soal'];
-                                $h_materi = $absen->jml_materi * $common->setting['honor_materi'];
+                                $soal = $common->get_dok('Soal', $absen->kode_guru, $data->tgl_awal, $data->tgl_akhir, $data->tingkat);
+                                $h_soal = $soal->jml * $common->setting['honor_soal'];
+                                $materi = $common->get_dok('Materi', $absen->kode_guru, $data->tgl_awal, $data->tgl_akhir, $data->tingkat);
+                                $h_materi = $materi->jml * $common->setting['honor_materi'];
                                 ?>
                                 <tr>
                                     <td><?php echo $no ?></td>
@@ -58,9 +60,9 @@
                                     <td><?php echo $absen->mapel ?></td>
                                     <td class="text-center"><?php echo $absen->jml_jam ?></td>
                                     <td class="text-right"><?php echo number_format($h_ajar); ?></td>
-                                    <td class="text-center"><?php echo $absen->jml_soal ?></td>
+                                    <td class="text-center"><?php echo $soal->jml ?></td>
                                     <td class="text-right"><?php echo number_format($h_soal); ?></td>
-                                    <td class="text-center"><?php echo $absen->jml_materi ?></td>
+                                    <td class="text-center"><?php echo $materi->jml ?></td>
                                     <td class="text-right"><?php echo number_format($h_materi); ?></td>
                                     <td class="text-right"><?php echo number_format($h_materi + $h_ajar + $h_soal); ?></td>
                                 </tr>

@@ -48,7 +48,7 @@
                             <table width="100%">
                                 <tr>
                                     <td style="text-align: left" colspan="2"><strong>Mengajar</strong></td>
-                                    <td style="text-align: right"><?php echo $absen->jml_jam != null ? $absen->jml_jam : 0;   ?> x <?php echo number_format($g_ajar)   ?> =</td>
+                                    <td style="text-align: right"><?php echo $absen->jml_jam != null ? $absen->jml_jam : 0; ?> x <?php echo number_format($g_ajar) ?> =</td>
                                     <td style="text-align: right">
                                         <?php
                                         $sub_absen = $absen->jml_jam * $g_ajar;
@@ -56,26 +56,40 @@
                                         ?>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td style="text-align: left" colspan="2"><strong>Materi</strong></td>
-                                    <td style="text-align: right"><?php echo $absen->jml_materi != null ? $absen->jml_materi : 0;   ?> x <?php echo number_format($g_materi)   ?> =</td>
-                                    <td style="text-align: right">
-                                        <?php
-                                        $sub_materi = $absen->jml_materi * $g_materi;
-                                        echo '' . number_format($sub_materi);
-                                        ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: left" colspan="2"><strong>Soal</strong></td>
-                                    <td style="text-align: right"><?php echo $absen->jml_soal != null ? $absen->jml_soal : 0;   ?> x <?php echo number_format($g_soal)   ?> =</td>
-                                    <td style="text-align: right">
-                                        <?php
-                                        $sub_soal = $absen->jml_soal * $g_soal;
-                                        echo '' . number_format($sub_soal);
-                                        ?>
-                                    </td>
-                                </tr>
+                                <?php
+                                $sub_materi = 0;
+                                $materi = $common->get_dok('Materi', $absen->kode_guru, $data->tgl_awal, $data->tgl_akhir, $data->tingkat);
+                                if ($materi->jml > 0) {
+                                    ?>
+                                    <tr>
+                                        <td style="text-align: left" colspan="2"><strong>Materi</strong></td>
+                                        <td style="text-align: right"><?php echo $materi->jml != null ? $materi->jml : 0; ?> x <?php echo number_format($g_materi) ?> =</td>
+                                        <td style="text-align: right">
+                                            <?php
+                                            $sub_materi = $materi->jml * $g_materi;
+                                            echo '' . number_format($sub_materi);
+                                            ?>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                                $sub_soal=0;
+                                $soal = $common->get_dok('Soal', $absen->kode_guru, $data->tgl_awal, $data->tgl_akhir, $data->tingkat);
+                                if ($soal->jml > 0) {
+                                    ?>
+                                    <tr>
+                                        <td style="text-align: left" colspan="2"><strong>Soal</strong></td>
+                                        <td style="text-align: right"><?php echo $soal->jml != null ? $soal->jml : 0; ?> x <?php echo number_format($g_soal) ?> =</td>
+                                        <td style="text-align: right">
+                                            <?php
+                                            $sub_soal = $soal->jml * $g_soal;
+                                            echo '' . number_format($sub_soal);
+                                            ?>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
                             </table>
                             <hr>
                             <table width="100%">

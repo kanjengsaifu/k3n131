@@ -64,6 +64,7 @@ class Pembayaran extends MY_Controller {
                 'list_data_det' => $this->pembayaran_det_model->select('*', array('kode_pembayaran' => $kode_transaksi), null, null, null)->result(),
                 'list_data_siswa' => $this->siswa_model->select('*', null, null, null, null)->result(),
                 'list_data_kat' => $this->listcode_model->select('*', array('head_list' => 'JL', 'substr(kode_list, 1,1) = \'K\'' => NULL), null, null, null)->result(),
+                'list_bulan_tahun' => $this->get_bulan_tahun('08/2016', '06/2017'),
                 'page' => 'webadmin/transaksi/pembayaran/add',
                 'modul' => $this->modul,
             );
@@ -167,7 +168,7 @@ class Pembayaran extends MY_Controller {
             $this->jurnal->add_jurnal($arr_jurnal);
         }
     }
-    
+
     //ajax post untuk detail data
     public function save_detail() {
         $kode = $this->input->post('inp_kode');
@@ -185,12 +186,12 @@ class Pembayaran extends MY_Controller {
         $return[0] = $this->get_table_detail($kode);
         echo json_encode($return);
     }
-    
+
     public function delete_detail() {
         $id_detail = $this->input->post('inp_id_detail');
         $kode = $this->input->post('inp_kode');
         $this->pembayaran_det_model->delete(array('id_pembayaran_detail' => $id_detail));
-        
+
         $return[0] = $this->get_table_detail($kode);
         echo json_encode($return);
     }
@@ -200,6 +201,67 @@ class Pembayaran extends MY_Controller {
             'list_data_det' => $this->pembayaran_det_model->select('*', array('kode_pembayaran' => $kode), null, null, null)->result()
         );
         return $this->load->view('webadmin/transaksi/pembayaran/list_detail', $data, TRUE);
+    }
+    
+     public function get_history() {
+        $kode_siswa = $this->input->post('kode_siswa');
+        $bl1 = '08/2016';
+        $bl2 = '06/2017';
+
+        $return[0] = $this->get_table_history($kode_siswa, $bl1, $bl2);
+        echo json_encode($return);
+    }
+
+    public function get_table_history($kode_siswa, $bl1, $bl2) {
+        $array_bulan = $this->get_bulan_tahun($bl1, $bl2);
+        $field = 'kode_siswa, nama_siswa, kelas';
+        for ($i = 0; $i < count($array_bulan); $i++) {
+            $bl = $array_bulan[$i];
+            $as = str_replace('-', '_', $bl);
+            $field .= ',(select v.tgl_pembayaran from view_pembayaran_spp v WHERE v.kode_siswa = m_siswa.kode_siswa and v.pembayaran = \'' . $bl . '\' limit 1) as ' . $as;
+        }
+
+        $array_where = array('kode_siswa' => $kode_siswa);
+        $data = array(
+            'data_hist' => $this->siswa_model->select($field, $array_where)->row_array(),
+            'list_bulan_tahun' => $this->get_bulan_tahun($bl1, $bl2)
+        );
+        return $this->load->view('webadmin/transaksi/pembayaran/list_history', $data, TRUE);
+    }
+
+    public function testing() {
+        $awal = '06/2016';
+        $akhir = '12/2016';
+        print_r($this->get_bulan_tahun($awal, $akhir));
+    }
+
+    public function get_bulan_tahun($start, $end) {
+        $thn_aw = substr($start, 3, 4);
+        $bln_aw = intval(substr($start, 0, 2));
+        $thn_ak = substr($end, 3, 4);
+        $bln_ak = intval(substr($end, 0, 2));
+        if ($bln_ak < 12) {
+            $bln_ak += 1;
+        } else {
+            $bln_ak = 1;
+            $thn_ak += 1;
+        }
+
+        $bl_ck = $bln_aw;
+        $th_ck = $thn_aw;
+        $arr_bt_cek = array();
+        $xxx = '';
+        while ($th_ck < $thn_ak || $bl_ck < $bln_ak) {
+            $txt_bl = $bl_ck < 10 ? '0' . $bl_ck : $bl_ck;
+            $xxx = $txt_bl . '-' . $th_ck;
+            $bl_ck += 1;
+            if ($bl_ck > 12) {
+                $bl_ck = 1;
+                $th_ck += 1;
+            }
+            array_push($arr_bt_cek, $xxx);
+        }
+        return $arr_bt_cek;
     }
 
 }

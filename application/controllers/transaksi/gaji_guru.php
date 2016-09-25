@@ -174,4 +174,16 @@ class Gaji_guru extends MY_Controller {
         return $absen;
     }
 
+    public function get_dok($jenis, $kode_guru, $tgl_awal, $tgl_akhir,$tingkat) {
+        $array_where = array(
+            'tipe_dok' => $jenis,
+            'kode_guru' => $kode_guru,
+            'tgl_pembuatan_dok >= \''.$tgl_awal.'\''=>null,
+            'tgl_pembuatan_dok <= \''.$tgl_akhir.'\''=>null,
+            'tingkat'=>$tingkat
+        );
+        return $this->pembuatan_dokumen_model->select('count(id_pembuatan_dok) as jml', $array_where)->row();
+    }
+    
+
 }

@@ -47,14 +47,14 @@
                                 $kls = str_replace('D', '', $kls);
                                 $kls = str_replace('E', '', $kls);
                                 $kls = str_replace('F', '', $kls);
-                                echo $kls;                                
+                                echo $kls;
                                 ?>
                             </td>
                             <?php
                             for ($i = 0; $i < count($array_bulan); $i++) {
                                 $tgl = $data['j_' . str_replace('-', '_', $array_bulan[$i])];
-                                echo '<td><center>';
-                                echo $tgl != null ? date('m/d/Y', strtotime($tgl)) : '';
+                                echo '<td><center';
+                                echo $tgl != null ? date('m/d', strtotime($tgl)) : '';
                                 echo'</center></td>';
                             }
                             ?> 

@@ -19,7 +19,9 @@ class Gaji_guru_model extends CI_Model {
 
     public function select($field, $where = array(), $limit = null, $offset = '', $order = array('field' => null, 'sort' => 'ASC')) {
         $field .= ',(select count(DISTINCT ag.kode_guru) from t_absen_guru ag where ag.tgl_absen >= t_gaji_guru.tgl_awal and ag.tgl_absen <= t_gaji_guru.tgl_akhir and ag.tingkat = t_gaji_guru.tingkat) as jml_guru '
-                . ',(select sum(ag.jumlah_jam) from t_absen_guru ag where ag.tgl_absen >= t_gaji_guru.tgl_awal and ag.tgl_absen <= t_gaji_guru.tgl_akhir and ag.tingkat = t_gaji_guru.tingkat) as tot_jam '; 
+                . ',(select sum(ag.jumlah_jam) from t_absen_guru ag where ag.tgl_absen >= t_gaji_guru.tgl_awal and ag.tgl_absen <= t_gaji_guru.tgl_akhir and ag.tingkat = t_gaji_guru.tingkat) as tot_jam '
+                . ',(select sum(pd.id_pembuatan_dok) from t_pembuatan_dokumen pd where pd.tgl_pembuatan_dok >= t_gaji_guru.tgl_awal and pd.tgl_pembuatan_dok <= t_gaji_guru.tgl_akhir and pd.tingkat = t_gaji_guru.tingkat and pd.tipe_dok=\'Soal\') as tot_soal '
+                . ',(select sum(pd.id_pembuatan_dok) from t_pembuatan_dokumen pd where pd.tgl_pembuatan_dok >= t_gaji_guru.tgl_awal and pd.tgl_pembuatan_dok <= t_gaji_guru.tgl_akhir and pd.tingkat = t_gaji_guru.tingkat and pd.tipe_dok=\'Materi\') as tot_materi ';
         $this->db->select($field);
         if (!is_null($order['field'])) {
             $this->db->order_by($order['field'], $order['sort']);

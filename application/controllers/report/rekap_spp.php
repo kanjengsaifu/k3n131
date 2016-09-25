@@ -51,11 +51,14 @@ class Rekap_spp extends MY_Controller {
         for ($i = 0; $i < count($array_bulan); $i++) {
             $bl = $array_bulan[$i];
             $as = 'j_' . str_replace('-', '_', $bl);
-            $field .= ',(select v.tgl_pembayaran from view_pembayaran_spp v WHERE v.kode_siswa = m_siswa.kode_siswa and v.pembayaran = \'' . $bl . '\' limit 1) as ' . $as;
+            $field .= ',(select det.id_pembayaran_detail '
+                    . 'from t_pembayaran_detail det '
+                    . 'WHERE (select h.kode_siswa from t_pembayaran_header h where h.kode_pembayaran = det.kode_pembayaran) = kode_siswa '
+                    . 'and concat(det.bulan,\'-\',det.tahun) = \'' . $bl . '\' limit 1) as ' . $as;
         }
 
 //        $array_where = array('kelas like \'%'.$param['kelas'].'%\'' => null);
-        $array_where = array('kelas is not null'=>null);
+        $array_where = array('kelas like \'%'.$param['kelas'].'%\''=>null);
 
         if ($submit == 'search_data') {
             $data = array(
@@ -63,7 +66,7 @@ class Rekap_spp extends MY_Controller {
                 'common' => $this,
                 'modul' => $this->modul,
                 'title_content' => 'Data ' . $this->modul,
-                'list_data' => $this->siswa_model->select($field, $array_where, null, null, array('field'=>'kelas, nama_siswa', 'sort'=>'asc'))->result_array(),
+                'list_data' => $this->siswa_model->select($field, $array_where, null, null, array('field'=>'nama_siswa', 'sort'=>'asc'))->result_array(),
                 'list_data_kelas' => $this->listcode_model->select('*', array('head_list' => 'KLS'), null, null, null)->result(),
                 'page' => 'webadmin/report/rekap_spp/search',
                 'param' => $param
@@ -75,10 +78,10 @@ class Rekap_spp extends MY_Controller {
     }
 
     public function cetak_data($field, $array_where, $param) {
-        $filename = 'Rekap SPP' . '_' . $param['kelas'] . '_' . $param['bulan_aw'] . $param['tahun_aw'] . '_' . $param['bulan_ak'] . $param['tahun_ak'] . '_' . mt_rand(1, 1000) . '.xls'; //just some random filename
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="' . $filename . '"');
-        header('Cache-Control: max-age=0');
+//        $filename = 'Rekap SPP' . '_' . $param['kelas'] . '_' . $param['bulan_aw'] . $param['tahun_aw'] . '_' . $param['bulan_ak'] . $param['tahun_ak'] . '_' . mt_rand(1, 1000) . '.xls'; //just some random filename
+//        header('Content-Type: application/vnd.ms-excel');
+//        header('Content-Disposition: attachment;filename="' . $filename . '"');
+//        header('Cache-Control: max-age=0');
 
         $data = array(
             'list_data' => $this->siswa_model->select($field, $array_where, null, null, array('field'=>'kelas,nama_siswa', 'sort'=>'asc'))->result_array(),

@@ -95,7 +95,7 @@
 </div>
 <?php $this->load->view('webadmin/transaksi/pengeluaran/modal_add');?>
 <style>
-    .dropdown-menu {
+    .datepicker.dropdown-menu {
         top: 170px !important;
     }
     

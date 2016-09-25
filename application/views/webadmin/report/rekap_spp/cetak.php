@@ -41,7 +41,7 @@
                             for ($i = 0; $i < count($array_bulan); $i++) {
                                 $tgl = $data['j_' . str_replace('-', '_', $array_bulan[$i])];
                                 echo '<td><center>';
-                                echo $tgl != null ? $this->format_date->format_date_dfy($tgl) : '';
+                                echo $tgl != null ? $this->format_date->indonesian_date('d/m',$tgl) : '';
                                 echo'</center></td>';
                             }
                             ?> 

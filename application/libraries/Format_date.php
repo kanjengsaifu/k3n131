@@ -27,7 +27,7 @@ class Format_date {
             'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min',
             'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu',
             'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des',
-            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'Sepember',
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September',
             'Oktober', 'November', 'Desember',
         );
         $date = date($date_format, $timestamp);

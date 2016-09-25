@@ -16,6 +16,7 @@ class Siswa_model extends CI_Model {
     }
 
     public function select($field, $where = array(), $limit = null, $offset = '', $order = array('field' => null, 'sort' => 'ASC')) {
+        $this->db->_protect_identifiers=false;
         $this->db->select($field);
         if (!is_null($order['field'])) {
             $this->db->order_by($order['field'], $order['sort']);

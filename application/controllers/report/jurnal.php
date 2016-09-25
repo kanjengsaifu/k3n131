@@ -35,6 +35,7 @@ class Jurnal extends MY_Controller {
     }
 
     public function search() {
+        
         $submit = $this->input->post('submit');
         $param = array(
             'bulan' => $this->input->post('inp_bulan'),
@@ -93,6 +94,10 @@ class Jurnal extends MY_Controller {
     }
     
     public function grafik($bulan, $tahun){
+         $filename = 'Jurnal' . '_' . $param['bulan'] . $param['tahun'] . '_' . mt_rand(1, 1000) . '.xls'; //just some random filename
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
         
         $field = 'DISTINCT(SUBSTR(kode_jurnal,1,3)) as kode'
                 . ',sum(debit) AS debit'

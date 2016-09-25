@@ -79,7 +79,7 @@
 </div>
 <?php // $this->load->view('webadmin/transaksi/gaji_guru/modal_add');?>
 <style>
-    .dropdown-menu {
+    .datepicker.dropdown-menu {
         top: 170px !important;
     }
 

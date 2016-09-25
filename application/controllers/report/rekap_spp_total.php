@@ -10,16 +10,16 @@ if (!defined('BASEPATH'))
 
 class Rekap_spp_total extends MY_Controller {
 
-    var $modul;
+    var $modul = 'Rekap SPP Total';
 
     public function __construct() {
         parent::__construct();
         $this->is_logged_in();
-        $this->modul = get_class($this);
     }
 
     public function index() {
-        $this->list_data1('08', '2016');
+//        $this->list_data1('08', '2016');
+        $this->list_data();
     }
     
     public function list_data1($bulan, $tahun){
@@ -51,7 +51,7 @@ class Rekap_spp_total extends MY_Controller {
             'modul' => $this->modul,
             'title_content' => 'Data ' . $this->modul,
             'list_data_kelas' => $this->listcode_model->select('*', array('head_list' => 'KLS'), null, null, null)->result(),
-            'page' => 'webadmin/report/rekap_spp/list'
+            'page' => 'webadmin/report/rekap_spp_total/list'
         );
         $this->load->view('webadmin/index', $data);
     }
@@ -60,23 +60,10 @@ class Rekap_spp_total extends MY_Controller {
         $submit = $this->input->post('submit');
 
         $param = array(
-            'bulan_aw' => $this->input->post('inp_bulan_aw'),
-            'tahun_aw' => $this->input->post('inp_tahun_aw'),
-            'bulan_ak' => $this->input->post('inp_bulan_ak'),
-            'tahun_ak' => $this->input->post('inp_tahun_ak'),
-            'kelas' => $this->input->post('inp_kelas')
+            'bulan' => $this->input->post('inp_bulan'),
+            'tahun' => $this->input->post('inp_tahun'),
+            'tingkat' => $this->input->post('inp_tingkat')
         );
-
-        $array_bulan = $this->get_bulan_tahun($param['bulan_aw'] . '-' . $param['tahun_aw'], $param['bulan_ak'] . '-' . $param['tahun_ak']);
-        $param = array_merge($param, array('array_bulan' => $array_bulan));
-        $field = 'kode_siswa, nama_siswa';
-        for ($i = 0; $i < count($array_bulan); $i++) {
-            $bl = $array_bulan[$i];
-            $as = 'j_' . str_replace('-', '_', $bl);
-            $field .= ',(select v.tgl_pembayaran from view_pembayaran_spp v WHERE v.kode_siswa = m_siswa.kode_siswa and v.pembayaran = \'' . $bl . '\') as ' . $as;
-        }
-
-        $array_where = array('kelas' => $param['kelas']);
 
         if ($submit == 'search_data') {
             $data = array(
@@ -84,9 +71,7 @@ class Rekap_spp_total extends MY_Controller {
                 'common' => $this,
                 'modul' => $this->modul,
                 'title_content' => 'Data ' . $this->modul,
-                'list_data' => $this->siswa_model->select($field, $array_where, null, null, null)->result_array(),
-                'list_data_kelas' => $this->listcode_model->select('*', array('head_list' => 'KLS'), null, null, null)->result(),
-                'page' => 'webadmin/report/rekap_spp/search',
+                'page' => 'webadmin/report/rekap_spp_total/search',
                 'param' => $param
             );
             $this->load->view('webadmin/index', $data);

@@ -68,7 +68,7 @@
 </div>
 <?php $this->load->view('webadmin/transaksi/pembuatan_dokumen/modal_add'); ?>
 <style>
-    .dropdown-menu {
+    .datepicker.dropdown-menu {
         top: 170px !important;
     }
 

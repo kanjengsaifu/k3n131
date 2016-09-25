@@ -44,7 +44,7 @@
                                                 <?php
                                                 for ($i = 0; $i < 12; $i++) {
                                                     $arr_i = $i + 1;
-                                                    $lbl_i = $i < 10 ? '0' . $arr_i : $arr_i;
+                                                    $lbl_i = $arr_i < 10 ? '0' . $arr_i : $arr_i;
                                                     echo '<option value="' . $lbl_i . '" ' . set_select('inp_bulan', $lbl_i, $lbl_i == date('m')) . '>' . $arr_m[$i] . '</option>';
                                                 }
                                                 ?>
@@ -72,7 +72,7 @@
                                                 <?php
                                                 for ($i = 0; $i < 12; $i++) {
                                                     $arr_i = $i + 1;
-                                                    $lbl_i = $i < 10 ? '0' . $arr_i : $arr_i;
+                                                    $lbl_i = $arr_i < 10 ? '0' . $arr_i : $arr_i;
                                                     echo '<option value="' . $lbl_i . '" ' . set_select('inp_bulan', $lbl_i, $lbl_i == date('m')) . '>' . $arr_m[$i] . '</option>';
                                                 }
                                                 ?>
